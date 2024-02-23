@@ -23,7 +23,7 @@ namespace Dissertation.Pages.News
 
         public async Task OnGetAsync()
         {
-            Article = await _context.Article.ToListAsync();
+            Article = await _context.Articles.ToListAsync();
         }
     }
 }

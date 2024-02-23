@@ -28,7 +28,7 @@ namespace Dissertation.Pages.News
                 return NotFound();
             }
 
-            var article = await _context.Article.FirstOrDefaultAsync(m => m.Id == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
                 return NotFound();

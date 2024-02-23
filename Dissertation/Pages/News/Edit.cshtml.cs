@@ -30,7 +30,7 @@ namespace Dissertation.Pages.News
                 return NotFound();
             }
 
-            var article =  await _context.Article.FirstOrDefaultAsync(m => m.Id == id);
+            var article =  await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace Dissertation.Pages.News
 
         private bool ArticleExists(int id)
         {
-            return _context.Article.Any(e => e.Id == id);
+            return _context.Articles.Any(e => e.Id == id);
         }
     }
 }

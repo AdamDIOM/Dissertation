@@ -29,7 +29,7 @@ namespace Dissertation.Pages.News
                 return NotFound();
             }
 
-            var article = await _context.Article.FirstOrDefaultAsync(m => m.Id == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
 
             if (article == null)
             {
@@ -49,11 +49,11 @@ namespace Dissertation.Pages.News
                 return NotFound();
             }
 
-            var article = await _context.Article.FindAsync(id);
+            var article = await _context.Articles.FindAsync(id);
             if (article != null)
             {
                 Article = article;
-                _context.Article.Remove(Article);
+                _context.Articles.Remove(Article);
                 await _context.SaveChangesAsync();
             }
 

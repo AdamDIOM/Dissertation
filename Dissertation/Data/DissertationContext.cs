@@ -14,6 +14,12 @@ namespace Dissertation.Data
         {
         }
 
-        public DbSet<Dissertation.Models.Article> Article { get; set; } = default!;
+        public DbSet<Dissertation.Models.Article> Articles { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Article>().ToTable("Article");
+        }
     }
 }
