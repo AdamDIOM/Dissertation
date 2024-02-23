@@ -8,6 +8,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DissertationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DissertationContext") ?? throw new InvalidOperationException("Connection string 'DissertationContext' not found.")));
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
