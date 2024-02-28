@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Dissertation.Data
 {
-    public class DissertationContext : DbContext
+    public class DissertationContext : IdentityDbContext<SiteUser>
     {
         public DissertationContext (DbContextOptions<DissertationContext> options)
             : base(options)
