@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/img/codeclublogo.png" alt="Code Club Logo" class="nav-logo"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -57,10 +57,30 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                             </li>
                         </ul>
+                        <hr class="d-lg-none"/>
                         <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
-                            </li>
+                            @using Microsoft.AspNetCore.Identity;
+                            @using Dissertation.Data;
+                            @inject SignInManager<SiteUser> SignInManager;
+                            @inject UserManager<SiteUser> UserManager;
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item dropdown">
+                                    <span class="nav-link text-dark">
+                                        @await UserManager.GetEmailAsync(await UserManager.GetUserAsync(User) ?? new SiteUser {Email = ""})
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Auth/Logout">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Auth/Login">Login</a>
+                                </li>
+                            }
+                           
                         </ul>
                     </div>
                  </div>
