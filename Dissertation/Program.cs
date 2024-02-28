@@ -1,12 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Dissertation.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DissertationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DissertationContext") ?? throw new InvalidOperationException("Connection string 'DissertationContext' not found.")));
+
+builder.Services.AddIdentity<SiteUser, IdentityRole>()
+    .AddEntityFrameworkStores<DissertationContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
