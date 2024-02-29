@@ -33,7 +33,7 @@ jobs:
         with:
           files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
         env:
-          ConnectionStrings.CodeClubAssetsContext: ${{ secrets.SECRET_DB }}
+          ConnectionStrings.DissertationContext: ${{ secrets.SECRET_DB }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
