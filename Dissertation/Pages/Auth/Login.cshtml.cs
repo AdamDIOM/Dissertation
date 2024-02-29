@@ -47,5 +47,12 @@ namespace Dissertation.Pages.Auth
             }
             return Page();
         }
+
+        public IActionResult OnPostLoginMsft()
+        {
+            var redirectUrl = Url.Page("./MSLogin", pageHandler: "Callback");
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties("Microsoft", redirectUrl);
+            return new ChallengeResult("Microsoft", properties);
+        }
     }
 }
