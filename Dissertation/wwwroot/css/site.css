@@ -39,3 +39,35 @@ body {
         border-right:none;
     }
 }
+
+.social-logo{
+    height:2.5rem;
+}
+
+.social-logo:hover{
+    filter:invert(1);
+}
+
+@media screen and (max-width: 992px) {
+
+    .bottom-nav .nav-link {
+        margin: 5px 0 5px 0;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .bottom-nav .social-link {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .offcanvas .bottom-text {
+        text-align: center;
+        padding-bottom: 5px;
+        text-wrap: wrap;
+        overflow-wrap: break-word;
+    }
+}
