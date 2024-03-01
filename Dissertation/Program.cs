@@ -39,8 +39,29 @@ catch
     msSec = builder.Configuration.GetValue<string>("AUTH_MS_SECRET")!;
 }
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminAccess", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+    options.AddPolicy("VolunteerAccess", policy =>
+    {
+        policy.RequireRole("Volunteer", "Admin");
+    });
+    options.AddPolicy("MemberAccess", policy =>
+    {
+        policy.RequireRole("Member", "Volunteer", "Admin");
+    });
+});
+
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Admin", "AdminAccess");
+    options.Conventions.AuthorizeFolder("/Volunteers", "VolunteerAccess");
+    options.Conventions.AuthorizeFolder("/Members", "MemberAccess");
+});
 
 builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
 {
@@ -55,7 +76,15 @@ builder.Services.AddDbContext<DissertationContext>(options =>
 
 builder.Services.AddIdentity<SiteUser, IdentityRole>()
     .AddEntityFrameworkStores<DissertationContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Auth/Login";
+    options.LogoutPath = "/Auth/Logout";
+    options.AccessDeniedPath = "/Auth/Login";
+});
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

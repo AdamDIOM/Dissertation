@@ -65,13 +65,40 @@
                             @inject UserManager<SiteUser> UserManager;
                             @if (SignInManager.IsSignedIn(User))
                             {
+                                var u = await UserManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
+
+                                
+
+                                    
                                 <li class="nav-item dropdown">
-                                    <span class="nav-link text-dark">
-                                        @await UserManager.GetEmailAsync(await UserManager.GetUserAsync(User) ?? new SiteUser {Email = ""})
-                                    </span>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Auth/Logout">Logout</a>
+                                    <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @await UserManager.GetEmailAsync(u)
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        @if (await UserManager.IsInRoleAsync(u, "Admin"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-page="/Members/Index">Member Hub</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-page="/Volunteers/Index">Volunteer Hub</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Index">Admin</a>
+                                            </li>
+                                        }
+                                        else if(await UserManager.IsInRoleAsync(u, "Volunteer"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-page="/Members/Index">Member Hub</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-page="/Volunteers/Index">Volunteer Hub</a>
+                                            </li>
+                                        }
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-page="/Auth/Logout">Logout</a>
+                                    </ul>
                                 </li>
                             }
                             else
