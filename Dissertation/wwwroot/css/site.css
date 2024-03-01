@@ -71,3 +71,29 @@ body {
         overflow-wrap: break-word;
     }
 }
+
+.footer-link {
+    display: block;
+    background-color: #8cae44;
+    border-radius: 10px;
+    margin: 5px;
+    line-height: 40px;
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .footer-link:hover {
+        background-color: #658332;
+    }
+
+.footer-text{
+    text-wrap:wrap;
+    line-height:20px;
+}
+
+.footer-logo {
+    width: 100%;
+    max-width:12rem;
+    max-height:3.1rem;
+}
