@@ -10,11 +10,13 @@ namespace Dissertation.Pages.Auth
     {
         private readonly SignInManager<SiteUser> _signInManager;
         private readonly UserManager<SiteUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         public MSLoginModel(
-            SignInManager<SiteUser> signInManager, UserManager<SiteUser> userManager)
+            SignInManager<SiteUser> signInManager, UserManager<SiteUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public async Task<IActionResult> OnGetCallbackAsync()
         {
@@ -33,6 +35,21 @@ namespace Dissertation.Pages.Auth
                     uresult = await _userManager.AddLoginAsync(user, info);
                     if (uresult.Succeeded)
                     {
+                        // creates volunteer role if not already existing
+                        var r = await _roleManager.RoleExistsAsync("Volunteer");
+                        if (!r)
+                        {
+                            var vRole = new IdentityRole { Name = "Volunteer" };
+                            var roleResult = await _roleManager.CreateAsync(vRole);
+                            if (roleResult.Succeeded)
+                            {
+                                if (user != null)
+                                {
+                                    await _userManager.AddToRoleAsync(user, "Volunteer");
+                                }
+                            }
+                        }
+
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                         return RedirectToPage("../Index");
                     }
