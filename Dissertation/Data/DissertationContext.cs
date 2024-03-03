@@ -23,5 +23,6 @@ namespace Dissertation.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Article>().ToTable("Article");
         }
+        public DbSet<Dissertation.Models.FAQ> FAQ { get; set; } = default!;
     }
 }
