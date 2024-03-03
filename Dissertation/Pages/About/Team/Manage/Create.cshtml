@@ -1,0 +1,59 @@
+﻿@page
+@model Dissertation.Pages.About.Team.Manage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Volunteer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Volunteer.Name" class="control-label"></label>
+                <input asp-for="Volunteer.Name" class="form-control" />
+                <span asp-validation-for="Volunteer.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.LinkedInEnding" class="control-label"></label>
+                <input asp-for="Volunteer.LinkedInEnding" class="form-control" />
+                <span asp-validation-for="Volunteer.LinkedInEnding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.ImgUrl" class="control-label"></label>
+                <input asp-for="Volunteer.ImgUrl" class="form-control" />
+                <span asp-validation-for="Volunteer.ImgUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.Level" class="control-label"></label>
+                <input asp-for="Volunteer.Level" class="form-control" />
+                <span asp-validation-for="Volunteer.Level" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.Title" class="control-label"></label>
+                <input asp-for="Volunteer.Title" class="form-control" />
+                <span asp-validation-for="Volunteer.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.Email" class="control-label"></label>
+                <input asp-for="Volunteer.Email" class="form-control" />
+                <span asp-validation-for="Volunteer.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
