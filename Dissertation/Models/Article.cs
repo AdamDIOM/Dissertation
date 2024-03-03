@@ -14,8 +14,9 @@ namespace Dissertation.Models
         public string? AuthorId { get; set; }
         [Required]
         public string? Content { get; set; }
-        public string? Tags { get; set; }
         public DateTime? PublishDate { get; set; }
+        [Required]
+        public bool? HomepageDisplay { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using Dissertation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dissertation.Migrations
 {
     [DbContext(typeof(DissertationContext))]
-    partial class DissertationContextModelSnapshot : ModelSnapshot
+    [Migration("20240303195508_add-tags")]
+    partial class addtags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,10 +110,6 @@ namespace Dissertation.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HomepageDisplay")
-                        .IsRequired()
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("datetime2");
 
@@ -131,10 +130,6 @@ namespace Dissertation.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool?>("NavDisplay")
-                        .IsRequired()
-                        .HasColumnType("bit");
 
                     b.Property<string>("Tag")
                         .IsRequired()
