@@ -8,6 +8,14 @@ html {
   }
 }
 
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:center;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -15,10 +23,6 @@ html {
 html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
 
 .nav-logo{
@@ -45,7 +49,7 @@ body {
 }
 
 .social-logo:hover{
-    filter:invert(1);
+    filter:brightness(0);
 }
 
 @media screen and (max-width: 992px) {
@@ -72,7 +76,7 @@ body {
     }
 }
 
-.footer-link {
+.footer-link, .tile {
     display: block;
     background-color: #8cae44;
     border-radius: 10px;
@@ -83,7 +87,7 @@ body {
     font-weight: bold;
 }
 
-    .footer-link:hover {
+    .footer-link:hover, .tile:hover {
         background-color: #658332;
     }
 
@@ -96,4 +100,63 @@ body {
     width: 100%;
     max-width:12rem;
     max-height:3.1rem;
+}
+
+main{
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+}
+
+.tile{
+    height:95%;
+}
+
+.tile p{
+    margin:10px;
+}
+
+.tiles :nth-child(2n) a {
+    background-color: #fa981c;
+}
+    .tiles :nth-child(2n) a:hover {
+        background-color: #db7733;
+    }
+
+
+@media screen and (max-width: 768px) {
+    .tiles :nth-child(2n) a {
+            background-color: #8cae44;
+        }
+            .tiles :nth-child(2n) a:hover {
+                background-color: #658332;
+            }
+        .tile {
+            height: 15vh;
+        }
+        .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
+            background-color: #fa981c;
+        }
+            .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
+                background-color: #db7733;
+            }
+}
+@media screen and (max-width: 576px) {
+    .tile {
+        display: inherit;
+        height: 6vh;
+    }
+    .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
+        background-color: #8cae44;
+    }
+
+        .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
+            background-color: #658332;
+        }
+    .tiles :nth-child(2n) a {
+        background-color: #fa981c;
+    }
+        .tiles :nth-child(2n) a:hover {
+            background-color: #db7733;
+        }
 }
