@@ -31,7 +31,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-page="/About/Index">About Us</a></li>
-                                    <li><a class="dropdown-item" asp-page="/About/Team">Our Team</a></li>
+                                    <li><a class="dropdown-item" asp-page="/About/Team/Index">Our Team</a></li>
                                     <li><a class="dropdown-item" asp-page="/About/Rules">Golden Rules</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" asp-page="/About/Contact">Contact Us</a>
@@ -111,9 +111,9 @@
                         </ul>
                         <ul class="navbar-nav justify-content-end justify-content-lg-end flex-grow-1 bottom-nav">
                             <li class="nav-item bottom-text">
-                                <a class="social-link text-dark" href="https://instagram.com/iomcodeclub"><img src="~/img/instagram-logo.png" alt="instagram logo" class="social-logo" /></a>
-                                <a class="social-link text-dark" href="https://www.facebook.com/IOMCodeClub/"><img src="~/img/facebook-logo.png" alt="facebook logo" class="social-logo" /></a>
-                                <a class="social-link text-dark" href="https://im.linkedin.com/company/iom-code-club"><img src="~/img/linkedin-logo.png" alt="linkedin logo" class="social-logo" /></a>
+                                <a class="social-link text-dark" href="https://instagram.com/iomcodeclub"><img src="~/img/instagram-logo-green.png" alt="instagram logo" class="social-logo" /></a>
+                                <a class="social-link text-dark" href="https://www.facebook.com/IOMCodeClub/"><img src="~/img/facebook-logo-green.png" alt="facebook logo" class="social-logo" /></a>
+                                <a class="social-link text-dark" href="https://im.linkedin.com/company/iom-code-club"><img src="~/img/linkedin-logo-green.png" alt="linkedin logo" class="social-logo" /></a>
                                 <p class="bottom-text d-lg-none">Code Club is charity registered on the Isle of Man - number 1322</p>
                             </li>
                         </ul>
@@ -126,8 +126,8 @@
             
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container d-flex flex-grow-1">
+        <main role="main" class="pb-3 d-flex flex-grow-1">
             @RenderBody()
         </main>
     </div>
