@@ -59,6 +59,8 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Admin", "AdminAccess");
+    options.Conventions.AuthorizeFolder("/About/Team/Manage", "AdminAccess");
+    options.Conventions.AuthorizeFolder("/News/Manage", "AdminAccess");
     options.Conventions.AuthorizeFolder("/Volunteers", "VolunteerAccess");
     options.Conventions.AuthorizeFolder("/Members", "MemberAccess");
 });
