@@ -14,5 +14,6 @@ namespace Dissertation.Models
         [Required]
         public string? Level { get; set; }
         public string? Title { get; set; }
+        public string? Email { get; set; }
     }
 }

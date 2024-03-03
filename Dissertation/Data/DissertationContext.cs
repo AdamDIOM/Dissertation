@@ -16,6 +16,7 @@ namespace Dissertation.Data
         }
 
         public DbSet<Dissertation.Models.Article> Articles { get; set; } = default!;
+        public DbSet<Dissertation.Models.Volunteer> Volunteer { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
