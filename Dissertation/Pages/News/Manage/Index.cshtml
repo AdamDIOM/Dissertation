@@ -1,12 +1,15 @@
 ﻿@page
-@model Dissertation.Pages.News.IndexModel
+@model Dissertation.Pages.News.Manage.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>News Posts</h1>
+<h1>Index</h1>
 
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Article[0].PublishDate)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -44,6 +48,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

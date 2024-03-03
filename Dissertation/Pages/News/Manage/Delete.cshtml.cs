@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
 
-namespace Dissertation.Pages.News
+namespace Dissertation.Pages.News.Manage
 {
     public class DeleteModel : PageModel
     {
