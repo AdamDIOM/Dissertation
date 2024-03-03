@@ -1,0 +1,36 @@
+﻿@page
+@model Dissertation.Pages.Information.FAQs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FAQ[0].Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAQ[0].Answer)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FAQ) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
