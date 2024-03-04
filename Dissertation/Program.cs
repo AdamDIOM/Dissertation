@@ -74,7 +74,10 @@ builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
 });
 
 builder.Services.AddDbContext<DissertationContext>(options =>
-    options.UseSqlServer(dbConnStr ?? throw new InvalidOperationException("Connection string 'DissertationContext' not found.")));
+{
+    options.UseSqlServer(dbConnStr ?? throw new InvalidOperationException("Connection string 'DissertationContext' not found."));
+    options.EnableSensitiveDataLogging();
+});
 
 builder.Services.AddIdentity<SiteUser, IdentityRole>()
     .AddEntityFrameworkStores<DissertationContext>()

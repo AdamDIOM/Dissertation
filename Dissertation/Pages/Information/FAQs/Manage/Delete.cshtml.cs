@@ -49,13 +49,29 @@ namespace Dissertation.Pages.Information.FAQs.Manage
                 return NotFound();
             }
 
+
             var faq = await _context.FAQ.FindAsync(id);
+            int pos = faq.PagePosition;
             if (faq != null)
             {
                 FAQ = faq;
                 _context.FAQ.Remove(FAQ);
                 await _context.SaveChangesAsync();
             }
+            _context.ChangeTracker.Clear();
+
+            var faqs = await _context.FAQ.ToListAsync();
+            foreach(var f in faqs)
+            {
+                if (f.PagePosition > pos)
+                {
+                    f.PagePosition--;
+                    _context.Attach(f).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    _context.ChangeTracker.Clear();
+                }
+            }
+            
 
             return RedirectToPage("./Index");
         }

@@ -23,6 +23,7 @@
                 <input asp-for="FAQ.Answer" class="form-control" />
                 <span asp-validation-for="FAQ.Answer" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="FAQ.PagePosition" value="@Model.LatestPosition" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -41,14 +41,55 @@ namespace Dissertation.Pages.Information.FAQs.Manage
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string? move)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            if(move != null)
+            {
+                //var FAQs = await _context.FAQ.ToListAsync();
+                if (move == "up" && FAQ.PagePosition > 0)
+                {
+                    var prevFAQ = await _context.FAQ.FirstOrDefaultAsync(faq => faq.PagePosition == FAQ.PagePosition - 1);
+                    if (prevFAQ != null)
+                    {
+                        prevFAQ.PagePosition++;
+                        FAQ.PagePosition--;
+                        //var tempFAQs = new List<Models.FAQ> { FAQ, prevFAQ };
+                        _context.Attach(prevFAQ).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                else if (move == "down" && FAQ.PagePosition < (await _context.FAQ.ToListAsync()).Count)
+                {
+                    var prevFAQ = await _context.FAQ.FirstOrDefaultAsync(faq => faq.PagePosition == FAQ.PagePosition + 1);
+                    if(prevFAQ != null)
+                    {
+                        prevFAQ.PagePosition--;
+                        FAQ.PagePosition++;
+                        //var tempFAQs = new List<Models.FAQ> { FAQ, prevFAQ };
+                        _context.Attach(prevFAQ).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                    }
+                    
+                }
+                else
+                {
+                    //_context.Attach(FAQ).State = EntityState.Modified;
+                }
+            }
+            else
+            {
+                //_context.Attach(FAQ).State = EntityState.Modified;
+            }
+
+            _context.ChangeTracker.Clear();
+
             _context.Attach(FAQ).State = EntityState.Modified;
+
 
             try
             {

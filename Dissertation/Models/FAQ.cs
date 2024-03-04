@@ -10,5 +10,7 @@ namespace Dissertation.Models
         public string? Question { get; set; }
         [Required]
         public string? Answer { get; set; }
+        [Required]
+        public int PagePosition { get; set; }
     }
 }

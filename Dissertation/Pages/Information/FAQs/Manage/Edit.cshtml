@@ -14,6 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FAQ.Id" />
+            <input type="hidden" asp-for="FAQ.PagePosition" />
             <div class="form-group">
                 <label asp-for="FAQ.Question" class="control-label"></label>
                 <input asp-for="FAQ.Question" class="form-control" />
@@ -23,6 +24,10 @@
                 <label asp-for="FAQ.Answer" class="control-label"></label>
                 <input asp-for="FAQ.Answer" class="form-control" />
                 <span asp-validation-for="FAQ.Answer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
+                <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

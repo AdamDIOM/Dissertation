@@ -23,7 +23,7 @@ namespace Dissertation.Pages.Information.FAQs.Manage
 
         public async Task OnGetAsync()
         {
-            FAQ = await _context.FAQ.ToListAsync();
+            FAQ = (await _context.FAQ.ToListAsync()).OrderBy(f => f.PagePosition).ToList();
         }
     }
 }

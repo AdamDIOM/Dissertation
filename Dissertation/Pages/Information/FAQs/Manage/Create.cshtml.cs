@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Dissertation.Data;
 using Dissertation.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dissertation.Pages.Information.FAQs.Manage
 {
@@ -18,9 +19,10 @@ namespace Dissertation.Pages.Information.FAQs.Manage
         {
             _context = context;
         }
-
-        public IActionResult OnGet()
+        public int LatestPosition;
+        public async Task<IActionResult> OnGetAsync()
         {
+            LatestPosition = (await _context.FAQ.ToListAsync()).Count;
             return Page();
         }
 
