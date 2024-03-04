@@ -6,7 +6,13 @@
 }
 
 <h1>News Posts</h1>
-
+<h2>Filter by Tag</h2>
+<form method="post">
+    @foreach (var tag in Model.Tags)
+    {
+        <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="btn" asp-page-handler="Filter"/>
+    }
+</form>
 <table class="table">
     <thead>
         <tr>
