@@ -110,7 +110,7 @@ a:hover, .tile:hover a, .tile a:hover {
 }
 
 .footer-text {
-    word-break: break-all;
+    word-break:keep-all;
     white-space: normal;
     line-height: 20px;
 }
