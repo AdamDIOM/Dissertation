@@ -83,14 +83,31 @@ html {
     border-radius: 10px;
     margin: 5px;
     line-height: 40px;
-    color: white !important;
+    color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
-    .footer-link:hover, .tile:hover {
-        background-color: var(--primary-dark);
-    }
+a > .footer-link, .tile a{
+    color:white;
+}
+
+.footer-link:hover, .tile:hover {
+    background-color: var(--primary-dark);
+}
+a:hover, .tile:hover a, .tile a:hover {
+    color:white;
+}
+
+.footer-link:active{
+    background-color:white;
+    color:var(--primary);
+    border: solid 1px var(--primary);
+}
+
+.footer-link:active a{
+    color: var(--primary);
+}
 
 .footer-text{
     text-wrap:wrap;
@@ -222,9 +239,27 @@ main{
     }
 }
 
-:root {
-    --primary: #8cae44;
-    --primary-dark: #658332;
-    --secondary: #fa981c;
-    --secondary-dark: #db7733;
+.btn{
+    background-color:var(--primary);
+    border:none;
+    color: white;
 }
+
+.btn:hover, .btn:focus{
+    background-color:var(--primary-dark);
+}
+
+.btn:focus{
+    outline-color:var(--primary);
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
+    box-shadow:none;
+}
+
+    :root {
+        --primary: #8cae44;
+        --primary-dark: #658332;
+        --secondary: #fa981c;
+        --secondary-dark: #db7733;
+    }
