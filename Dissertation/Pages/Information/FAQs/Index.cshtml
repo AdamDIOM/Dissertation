@@ -6,17 +6,17 @@
 }
 
 <h1>Frequently Asked Questions</h1>
-<div class="row">
+<div class="row faq-row">
     @foreach (var item in Model.FAQ)
     {
         var h = $"h-{item.Id}";
         var c = $"c-{item.Id}";
         var e = $"e-{item.Id}";
-        <div class="col-12 col-sm-6 col-md-4 pb-sm-3">
+        <div class="col col-12 col-sm-6 col-md-4 pb-3">
             <div class="accordion" id="@e">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="@h">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@c" aria-expanded="false" aria-controls="@c">
+                        <button class="accordion-button collapsed footer-accordion-item" type="button" data-bs-toggle="collapse" data-bs-target="#@c" aria-expanded="false" aria-controls="@c">
                             @item.Question
                         </button>
                     </h2>

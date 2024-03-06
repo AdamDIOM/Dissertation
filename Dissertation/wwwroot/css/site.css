@@ -1,3 +1,4 @@
+@import url('site.css');
 html {
   font-size: 14px;
 }
@@ -37,7 +38,7 @@ html {
     text-align:center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .login-email {
         border-bottom:1px solid black;
         border-right:none;
@@ -52,7 +53,7 @@ html {
     filter:brightness(0);
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
 
     .bottom-nav .nav-link {
         margin: 5px 0 5px 0;
@@ -78,7 +79,7 @@ html {
 
 .footer-link, .tile {
     display: block;
-    background-color: #8cae44;
+    background-color: var(--primary);
     border-radius: 10px;
     margin: 5px;
     line-height: 40px;
@@ -88,7 +89,7 @@ html {
 }
 
     .footer-link:hover, .tile:hover {
-        background-color: #658332;
+        background-color: var(--primary-dark);
     }
 
 .footer-text{
@@ -117,46 +118,113 @@ main{
 }
 
 .tiles :nth-child(2n) a {
-    background-color: #fa981c;
+    background-color: var(--secondary);
 }
     .tiles :nth-child(2n) a:hover {
-        background-color: #db7733;
+        background-color: var(--secondary-dark);
     }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .tiles :nth-child(2n) a {
-            background-color: #8cae44;
+            background-color: var(--primary);
         }
             .tiles :nth-child(2n) a:hover {
-                background-color: #658332;
+                background-color: var(--primary-dark);
             }
         .tile {
             height: 15vh;
         }
         .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
-            background-color: #fa981c;
+            background-color: var(--secondary);
         }
             .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
-                background-color: #db7733;
+                background-color: var(--secondary-dark);
             }
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 575px) {
     .tile {
         display: inherit;
         height: 6vh;
     }
-    .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
-        background-color: #8cae44;
+    .tiles /*:nth-child(4n-2) a, .tiles :nth-child(4n-1)*/ a {
+        background-color: var(--primary);
     }
 
-        .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
-            background-color: #658332;
+        .tiles /*:nth-child(4n-2) a:hover, .tiles :nth-child(4n-1)*/ a:hover {
+            background-color: var(--primary-dark);
         }
     .tiles :nth-child(2n) a {
-        background-color: #fa981c;
+        background-color: var(--secondary);
     }
         .tiles :nth-child(2n) a:hover {
-            background-color: #db7733;
+            background-color: var(--secondary-dark);
         }
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-item {
+    border-color: var(--primary);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary);
+    color: white;
+}
+
+.faq-row :nth-child(2n) .accordion-item {
+    border-color: var(--secondary);
+}
+
+.faq-row :nth-child(2n) .accordion-button:not(.collapsed) {
+    background-color: var(--secondary);
+    color: white;
+}
+
+
+@media screen and (max-width: 767px) {
+    .faq-row :nth-child(2n) .accordion-item {
+        border-color: var(--primary);
+    }
+    .faq-row :nth-child(2n) .accordion-button:not(.collapsed) {
+        background-color: var(--primary);
+    }
+
+    .faq-row :nth-child(4n-2) .accordion-item, .faq-row :nth-child(4n-1) .accordion-item {
+        border-color: var(--secondary);
+    }
+
+    .faq-row :nth-child(4n-2) .accordion-button:not(.collapsed), .faq-row :nth-child(4n-1) .accordion-button:not(.collapsed) {
+        background-color: var(--secondary);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .faq-row .col .accordion /*:nth-child(4n-2) .accordion-item, .faq-row :nth-child(4n-1)*/ .accordion-item {
+        border-color: var(--primary);
+    }
+    .faq-row .col .accordion /*:nth-child(4n-2) .accordion-button:not(.collapsed), .faq-row :nth-child(4n-1)*/ .accordion-button:not(.collapsed) {
+        background-color: var(--primary);
+    }
+
+    .faq-row :nth-child(2n) .accordion .accordion-item {
+        border-color: var(--secondary);
+    }
+    .faq-row :nth-child(2n) .accordion .accordion-button:not(.collapsed) {
+        background-color: var(--secondary);
+    }
+}
+
+:root {
+    --primary: #8cae44;
+    --primary-dark: #658332;
+    --secondary: #fa981c;
+    --secondary-dark: #db7733;
 }
