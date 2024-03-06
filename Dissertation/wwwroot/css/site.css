@@ -109,9 +109,10 @@ a:hover, .tile:hover a, .tile a:hover {
     color: var(--primary);
 }
 
-.footer-text{
-    text-wrap:wrap;
-    line-height:20px;
+.footer-text {
+    word-break: break-all;
+    white-space: normal;
+    line-height: 20px;
 }
 
 .footer-logo {
