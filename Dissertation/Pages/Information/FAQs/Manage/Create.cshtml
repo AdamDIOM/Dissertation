@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FAQ.Answer" class="control-label"></label>
-                <input asp-for="FAQ.Answer" class="form-control" />
+                <textarea asp-for="FAQ.Answer" class="form-control"></textarea>
                 <span asp-validation-for="FAQ.Answer" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="FAQ.PagePosition" value="@Model.LatestPosition" />

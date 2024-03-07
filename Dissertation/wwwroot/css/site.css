@@ -95,7 +95,7 @@ a > .footer-link, .tile a{
 .footer-link:hover, .tile:hover {
     background-color: var(--primary-dark);
 }
-a:hover, .tile:hover a, .tile a:hover {
+footer a:hover, .tile:hover a, .tile a:hover {
     color:white;
 }
 
@@ -248,6 +248,7 @@ main{
 
 .btn:hover, .btn:focus{
     background-color:var(--primary-dark);
+    color:white;
 }
 
 .btn:focus{
@@ -264,3 +265,7 @@ main{
         --secondary: #fa981c;
         --secondary-dark: #db7733;
     }
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--primary);
+}
