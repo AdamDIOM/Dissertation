@@ -17,6 +17,7 @@ namespace Dissertation.Models
         public DateTime? PublishDate { get; set; }
         [Required]
         public bool? HomepageDisplay { get; set; }
+        public byte[]? BannerImage { get; set; }
 
     }
 }
