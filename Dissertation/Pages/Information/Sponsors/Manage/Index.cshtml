@@ -1,0 +1,62 @@
+﻿@page
+@model Dissertation.Pages.Information.Sponsors.Manage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Manage Sponsors</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sponsor[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sponsor[0].ImageData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sponsor[0].Information)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Sponsor) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+                <td>
+                    @if (item.ImageData != null)
+                    {
+                        try
+                        {
+                            <img class="sponsor-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.ImageData))" alt="@item.Name" />
+                        }
+                        catch (Exception e)
+                        {
+                            <span>Image not found</span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Image not found</span>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Information)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

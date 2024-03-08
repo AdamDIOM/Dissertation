@@ -269,3 +269,11 @@ main{
 .dropdown-item.active, .dropdown-item:active {
     background-color: var(--primary);
 }
+
+.sponsor-image {
+    max-width: 10vw;
+}
+.sponsor-row .sponsor-image{
+    max-width:90%;
+    max-height:100%;
+}

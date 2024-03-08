@@ -26,5 +26,6 @@ namespace Dissertation.Data
             modelBuilder.Entity<Article>().ToTable("Article");
         }
         public DbSet<Dissertation.Models.FAQ> FAQ { get; set; } = default!;
+        public DbSet<Dissertation.Models.Sponsor> Sponsor { get; set; } = default!;
     }
 }

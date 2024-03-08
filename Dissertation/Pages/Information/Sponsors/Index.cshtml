@@ -1,0 +1,45 @@
+﻿@page
+@model Dissertation.Pages.Information.Sponsors.IndexModel
+
+@{
+    ViewData["Title"] = "Sponsors";
+}
+
+<h1>Sponsors</h1>
+<div class="row sponsor-row">
+    @foreach (var item in Model.Sponsor) {
+        var h = $"h-{item.Id}";
+        var c = $"c-{item.Id}";
+        var e = $"e-{item.Id}";
+        <div class="col col-12 col-sm-6 col-md-4 pb-3">
+            <div class="accordion" id="@e">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="@h">
+                        <button class="accordion-button collapsed footer-accordion-item" type="button" data-bs-toggle="collapse" data-bs-target="#@c" aria-expanded="false" aria-controls="@c">
+                        @if (item.ImageData != null)
+                        {
+                            try
+                            {
+                                <img class="sponsor-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.ImageData))" alt="@item.Name" />
+                            }
+                            catch (Exception ee)
+                            {
+                                @item.Name
+                            }
+                        }
+                        else
+                        {
+                            @item.Name
+                        }
+                        </button>
+                    </h2>
+                    <div id="@c" class="accordion-collapse collapse" aria-labelledby="@h" data-bs-parent="#@e">
+                        <div class="accordion-body">
+                            <md-block>@item.Information</md-block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
