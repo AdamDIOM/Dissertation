@@ -22,6 +22,8 @@ namespace Dissertation.Pages.News.Manage
 
         [BindProperty]
         public Article Article { get; set; } = default!;
+        [BindProperty]
+        public bool HomepageDisplay { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +38,7 @@ namespace Dissertation.Pages.News.Manage
                 return NotFound();
             }
             Article = article;
+            HomepageDisplay = Article.HomepageDisplay ?? true;
             return Page();
         }
 
@@ -43,11 +46,22 @@ namespace Dissertation.Pages.News.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Article.BannerImage = (Article.BannerImage ?? []).ToArray();
+            Article.HomepageDisplay = HomepageDisplay;
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            if (Request.Form.Files.Count >= 1)
+            {
+                // copies file data into a memory stream and then into the object
+                MemoryStream ms = new MemoryStream();
+                Request.Form.Files[0].CopyTo(ms);
+                Article.BannerImage = ms.ToArray();
 
+                ms.Close();
+                ms.Dispose();
+            }
             _context.Attach(Article).State = EntityState.Modified;
 
             try

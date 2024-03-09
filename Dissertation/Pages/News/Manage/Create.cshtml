@@ -5,13 +5,12 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Create News Article</h1>
 
-<h4>Article</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Article.Title" class="control-label"></label>
@@ -25,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Article.Content" class="control-label"></label>
-                <input asp-for="Article.Content" class="form-control" />
+                <textarea asp-for="Article.Content" class="form-control" ></textarea>
                 <span asp-validation-for="Article.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,14 +33,23 @@
                 <span asp-validation-for="Article.PublishDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Article.HomepageDisplay" class="control-label">Display on Homepage?</label>
+                <input type="hidden" asp-for="Article.HomepageDisplay" value="@true" />
+                <input type="checkbox" asp-for="HomepageDisplay" />
+                <span asp-validation-for="HomepageDisplay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Image</label>
+                <input type="hidden" asp-for="Article.BannerImage" value="" />
+                <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
+                <span asp-validation-for="Article.BannerImage" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-danger">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

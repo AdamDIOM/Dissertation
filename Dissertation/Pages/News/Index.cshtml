@@ -8,44 +8,55 @@
 <h1>News Posts</h1>
 <h2>Filter by Tag</h2>
 <form method="post">
+    <a asp-page="./Index" class="btn">Clear</a>
     @foreach (var tag in Model.Tags)
     {
         <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="btn" asp-page-handler="Filter"/>
     }
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Article[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Article[0].AuthorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Article[0].Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Article[0].PublishDate)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Article) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishDate)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row news-row">
+    @foreach (var item in Model.Article) {
+        <div class="col col-12 col-sm-6 col-lg-4 pb-3 d-flex">
+            <a asp-page="./Post" asp-route-id="@item.Id" class="d-flex">
+                <div class="article-preview flex-grow-1">
+                    <div class="banner-img-wrapper">
+                        @if (item.BannerImage != null)
+                        {
+                            try
+                            {
+                                <img class="banner-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.BannerImage))" alt="@item.Title" />
+                            }
+                            catch
+                            {
+                                <img class="banner-image" src="~/img/codeclublogo.png" alt="Code Club Logo" />
+                            }
+                        }
+                        else
+                        {
+                            <img class="banner-image" src="~/img/codeclublogo.png" alt="Code Club Logo" />
+                        }
+                    </div>
+            
+                    <hr />
+                    <h2>@item.Title</h2>
+                    <div class="preview-wrapper px-2">
+                        @{
+                            var words = (item.Content ?? "").Split(' ').Take(50);
+                            string output = "";
+                            foreach(var word in words)
+                            {
+                                output += word + " ";
+                            }
+                            output = output.Trim();
+                            if ((item.Content ?? "").Split(' ').Count() > 50)
+                            {
+                                output += "...";
+                            }
+                            <md-block>@output</md-block>
+                        }
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>

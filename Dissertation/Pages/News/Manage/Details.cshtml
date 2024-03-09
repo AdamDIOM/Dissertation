@@ -5,10 +5,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Article.Title - Details</h1>
 
 <div>
-    <h4>Article</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -27,7 +26,7 @@
             @Html.DisplayNameFor(model => model.Article.Content)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Article.Content)
+            <md-block>@Html.DisplayFor(model => model.Article.Content)</md-block>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Article.PublishDate)
@@ -35,9 +34,35 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Article.PublishDate)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.HomepageDisplay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.HomepageDisplay)
+        </dd>
+        <dt class="col-sm-2">
+            Banner Image
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Article.BannerImage != null)
+            {
+                try
+                {
+                    <img class="banner-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(Model.Article.BannerImage))" alt="@Model.Article.Title" />
+                }
+                catch (Exception e)
+                {
+                    <p>No image - using Code Club logo default</p>
+                }
+            }
+            else
+            {
+                    <p>No image - using Code Club logo default</p>
+            }
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Article.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Article.Id" class="btn">Edit</a>
+    <a asp-page="./Index" class="btn">Return</a>
 </div>

@@ -29,7 +29,7 @@ namespace Dissertation.Pages.News
 
         public async Task OnGetAsync()
         {
-            Article = await _context.Articles.ToListAsync();
+            Article = await _context.Articles.Where(a => a.PublishDate < DateTime.Now).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
             TagLinks = await _context.ArticleTagLinks.ToListAsync();
             if(filter != null && filter != "")
@@ -37,6 +37,7 @@ namespace Dissertation.Pages.News
                 TagLinks = TagLinks.Where(tl => tl.TagId.ToString() == filter).ToList();
                 Article = Article.Where(a => TagLinks.FirstOrDefault(tl => tl.ArticleId == a.Id) != null).ToList();
             }
+            Article = Article.OrderByDescending(a => a.PublishDate).ToList();
         }
 
         public IActionResult OnPostFilter(string f)
