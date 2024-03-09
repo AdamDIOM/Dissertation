@@ -77,7 +77,7 @@ html {
     }
 }
 
-.footer-link, .tile {
+.footer-link{
     display: block;
     background-color: var(--primary);
     border-radius: 10px;
@@ -88,14 +88,14 @@ html {
     font-weight: bold;
 }
 
-a > .footer-link, .tile a{
+a > .footer-link{
     color:white;
 }
 
-.footer-link:hover, .tile:hover {
+.footer-link:hover {
     background-color: var(--primary-dark);
 }
-footer a:hover, .tile:hover a, .tile a:hover {
+footer a:hover {
     color:white;
 }
 
@@ -127,16 +127,35 @@ main{
     flex-grow:1;
 }
 
-.tile{
-    height:95%;
+.tile {
+    height: 95%;
+    border: solid 3px black;
+    display: block;
+    border-color: var(--primary);
+    border-radius: 10px;
+    margin: 5px;
+    line-height: 40px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size:2rem;
 }
 
+.tile:hover {
+    background-color: var(--primary-dark);
+}
+.tile:hover, .tile a:hover {
+    color: white;
+}
 .tile p{
     margin:10px;
 }
+.tile a {
+    color: white;
+}
 
 .tiles :nth-child(2n) a {
-    background-color: var(--secondary);
+    border-color: var(--secondary);
 }
     .tiles :nth-child(2n) a:hover {
         background-color: var(--secondary-dark);
@@ -145,7 +164,7 @@ main{
 
 @media screen and (max-width: 767px) {
     .tiles :nth-child(2n) a {
-            background-color: var(--primary);
+            border-color: var(--primary);
         }
             .tiles :nth-child(2n) a:hover {
                 background-color: var(--primary-dark);
@@ -154,7 +173,7 @@ main{
             height: 15vh;
         }
         .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
-            background-color: var(--secondary);
+            border-color: var(--secondary);
         }
             .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
                 background-color: var(--secondary-dark);
@@ -165,15 +184,15 @@ main{
         display: inherit;
         height: 6vh;
     }
-    .tiles /*:nth-child(4n-2) a, .tiles :nth-child(4n-1)*/ a {
-        background-color: var(--primary);
+    .tiles :nth-child(4n-2) a, .tiles :nth-child(4n-1) a {
+        border-color: var(--primary);
     }
 
-        .tiles /*:nth-child(4n-2) a:hover, .tiles :nth-child(4n-1)*/ a:hover {
+        .tiles :nth-child(4n-2) a:hover, .tiles :nth-child(4n-1) a:hover {
             background-color: var(--primary-dark);
         }
     .tiles :nth-child(2n) a {
-        background-color: var(--secondary);
+        border-color: var(--secondary);
     }
         .tiles :nth-child(2n) a:hover {
             background-color: var(--secondary-dark);
@@ -225,10 +244,10 @@ main{
 }
 
 @media screen and (max-width: 575px) {
-    .faq-row .col .accordion /*:nth-child(4n-2) .accordion-item, .faq-row :nth-child(4n-1)*/ .accordion-item {
+    .faq-row .col .accordion :nth-child(4n-2) .accordion-item, .faq-row :nth-child(4n-1) .accordion-item {
         border-color: var(--primary);
     }
-    .faq-row .col .accordion /*:nth-child(4n-2) .accordion-button:not(.collapsed), .faq-row :nth-child(4n-1)*/ .accordion-button:not(.collapsed) {
+    .faq-row .col .accordion :nth-child(4n-2) .accordion-button:not(.collapsed), .faq-row :nth-child(4n-1) .accordion-button:not(.collapsed) {
         background-color: var(--primary);
     }
 
