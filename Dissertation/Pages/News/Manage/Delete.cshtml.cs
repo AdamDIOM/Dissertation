@@ -21,6 +21,8 @@ namespace Dissertation.Pages.News.Manage
 
         [BindProperty]
         public Article Article { get; set; } = default!;
+        public IList<ArticleTag> Tags { get; set; } = default!;
+        public IList<ArticleTagLink> Links { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,6 +40,14 @@ namespace Dissertation.Pages.News.Manage
             else
             {
                 Article = article;
+            }
+            Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
+            Tags = new List<ArticleTag>();
+            var allTags = await _context.ArticleTags.ToListAsync();
+            foreach (var link in Links)
+            {
+                var t = allTags.FirstOrDefault(t => t.Id == link.TagId);
+                if (t != null) Tags.Add(t);
             }
             return Page();
         }

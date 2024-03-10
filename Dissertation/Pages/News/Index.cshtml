@@ -11,7 +11,7 @@
     <a asp-page="./Index" class="btn">Clear</a>
     @foreach (var tag in Model.Tags)
     {
-        <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="btn" asp-page-handler="Filter"/>
+        <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="@((Model.filter ?? "") == tag.Id.ToString() ? "btn btn-highlight" : "btn")" asp-page-handler="Filter"/>
     }
 </form>
 <div class="row news-row">
