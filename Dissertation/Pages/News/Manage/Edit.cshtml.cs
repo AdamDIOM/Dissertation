@@ -59,7 +59,7 @@ namespace Dissertation.Pages.News.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Article.BannerImage = (Article.BannerImage ?? []).ToArray();
+            Article.BannerImage = Article.BannerImage?.ToArray();
             Article.HomepageDisplay = HomepageDisplay;
 
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
