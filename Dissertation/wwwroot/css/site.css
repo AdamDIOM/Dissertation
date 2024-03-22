@@ -312,6 +312,7 @@ main{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px 10px 0 0;
 }
 
 .news-row .col .article-preview {
@@ -348,4 +349,15 @@ main{
 
 .btn-highlight{
     background-color:var(--secondary);
+}
+
+.carousel img {
+    height: 50vh;
+    object-fit: cover;
+}
+
+.carousel-caption{
+    background-color:var(--primary);
+    border-radius:20px;
+    width:auto;
 }
