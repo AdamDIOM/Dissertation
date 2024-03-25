@@ -8,16 +8,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
 
 namespace Dissertation.Pages.Information.Sponsors.Manage
 {
     public class EditModel : PageModel
     {
         private readonly Dissertation.Data.DissertationContext _context;
+        private readonly IConfiguration _config;
 
-        public EditModel(Dissertation.Data.DissertationContext context)
+        public EditModel(Dissertation.Data.DissertationContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         [BindProperty]
@@ -55,7 +59,21 @@ namespace Dissertation.Pages.Information.Sponsors.Manage
                 // copies file data into a memory stream and then into the object
                 MemoryStream ms = new MemoryStream();
                 Request.Form.Files[0].CopyTo(ms);
-                Sponsor.ImageData = ms.ToArray();
+
+                string connSA = _config["SECRET_SA"] ?? "";
+                if(connSA == "")
+                {
+                    connSA = _config.GetConnectionString("StorageAccount")!;
+                }
+                var blobServiceClient = new BlobServiceClient(connSA);
+
+                //BlobContainerClient container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("sponsor-images") ?? await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+
+                BlobClient blob = container.GetBlobClient(Sponsor.Id.ToString() + ".png");
+
+                BinaryData bd = new BinaryData(ms.ToArray());
+                await blob.UploadAsync(content: bd, options: new BlobUploadOptions { HttpHeaders = new BlobHttpHeaders { ContentType = "image/png" } });
 
                 ms.Close();
                 ms.Dispose();

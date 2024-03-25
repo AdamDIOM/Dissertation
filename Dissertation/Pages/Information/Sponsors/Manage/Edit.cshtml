@@ -21,22 +21,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Image</label>
-                @if (Model.Sponsor.ImageData != null)
-                {
-                    try
-                    {
-                        <img class="sponsor-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(Model.Sponsor.ImageData))" alt="@Model.Sponsor.Name" />
-                    }
-                    catch (Exception e)
-                    {
-                        <span>Image not found</span>
-                    }
-                }
-                else
-                {
-                    <span>Image not found</span>
-                }
-                <input type="hidden" asp-for="Sponsor.ImageData" value="@(Convert.ToBase64String(Model.Sponsor.ImageData ?? []))" />
+                <img class="sponsor-image" src="@($" https://dissertationad.blob.core.windows.net/sponsor-images/{Model.Sponsor.Id}.png")" alt="@Model.Sponsor.Name" />
                 <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
                 <span asp-validation-for="Sponsor.Name" class="text-danger"></span>
             </div>

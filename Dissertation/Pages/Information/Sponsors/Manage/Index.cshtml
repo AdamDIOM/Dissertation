@@ -27,26 +27,13 @@
     </thead>
     <tbody>
 @foreach (var item in Model.Sponsor) {
-        <tr>
+            var imgLink = $"https://dissertationad.blob.core.windows.net/sponsor-images/{item.Id}.png";
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
                 <td>
-                    @if (item.ImageData != null)
-                    {
-                        try
-                        {
-                            <img class="sponsor-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.ImageData))" alt="@item.Name" />
-                        }
-                        catch (Exception e)
-                        {
-                            <span>Image not found</span>
-                        }
-                    }
-                    else
-                    {
-                        <span>Image not found</span>
-                    }
+                    <img class="sponsor-image" src="@imgLink" alt="@item.Name" />
                 </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Information)
