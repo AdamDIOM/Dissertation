@@ -34,6 +34,7 @@ jobs:
           files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
         env:
           ConnectionStrings.DissertationContext: ${{ secrets.SECRET_DB }}
+          ConnectionStrings.StorageAccount: ${{ secrets.SECRET_SA }}
           AUTH_MS_ID: ${{ secrets.AUTH_MS_ID }}
           AUTH_MS_SECRET: ${{ secrets.AUTH_MS_SECRET }}
 
