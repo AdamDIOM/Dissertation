@@ -82,7 +82,12 @@ namespace Dissertation.Pages.Information.Sponsors.Manage
             var blobServiceClient = new BlobServiceClient(connSA);
 
             //BlobContainerClient container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
-            BlobContainerClient container = blobServiceClient.GetBlobContainerClient("sponsor-images") ?? await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+            BlobContainerClient container;
+            container = blobServiceClient.GetBlobContainerClient("sponsor-images");
+            if (!container.Exists())
+            {
+                container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+            }
 
             BlobClient blob = container.GetBlobClient(Sponsor.Id.ToString() + ".png");
             
