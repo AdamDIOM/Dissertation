@@ -20,7 +20,6 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Image</label>
-                <input type="hidden" asp-for="Sponsor.ImageData" value="" />
                 <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
                 <span asp-validation-for="Sponsor.Name" class="text-danger">@Model.noImgMsg</span>
             </div>

@@ -48,7 +48,6 @@ namespace Dissertation.Pages.Information.Sponsors.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Sponsor.ImageData = (Sponsor.ImageData ?? []).ToArray();
             if (!ModelState.IsValid)
             {
                 return Page();

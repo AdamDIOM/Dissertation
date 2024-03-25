@@ -47,7 +47,6 @@ namespace Dissertation.Pages.Information.Sponsors.Manage
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            Sponsor.ImageData = new byte[1];
             if (!ModelState.IsValid)
             {
                 if (noImg == "true")
