@@ -45,21 +45,7 @@
             Banner Image
         </dt>
         <dd class="col-sm-10">
-            @if (Model.Article.BannerImage != null)
-            {
-                try
-                {
-                            <img class="banner-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(Model.Article.BannerImage))" alt="@Model.Article.Title" />
-                }
-                catch (Exception e)
-                {
-                            <p>No image - using Code Club logo default</p>
-                }
-            }
-            else
-            {
-                        <p>No image - using Code Club logo default</p>
-            }
+            <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="this.className = 'd-none';" />
         </dd>
         <dt class="col-sm-2">
             Tags

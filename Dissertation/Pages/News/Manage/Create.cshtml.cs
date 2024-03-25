@@ -10,16 +10,20 @@ using Dissertation.Models;
 using System.Security.Cryptography.Xml;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 
 namespace Dissertation.Pages.News.Manage
 {
     public class CreateModel : PageModel
     {
         private readonly Dissertation.Data.DissertationContext _context;
+        private readonly IConfiguration _config;
 
-        public CreateModel(Dissertation.Data.DissertationContext context)
+        public CreateModel(Dissertation.Data.DissertationContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -47,19 +51,40 @@ namespace Dissertation.Pages.News.Manage
                 return Page();
             }
 
+            
+            _context.Articles.Add(Article);
+            await _context.SaveChangesAsync();
+
             if (Request.Form.Files.Count >= 1)
             {
                 // copies file data into a memory stream and then into the object
                 MemoryStream ms = new MemoryStream();
                 Request.Form.Files[0].CopyTo(ms);
-                Article.BannerImage = ms.ToArray();
+
+                string connSA = _config["SECRET_SA"] ?? "";
+                if (connSA == "")
+                {
+                    connSA = _config.GetConnectionString("StorageAccount")!;
+                }
+                var blobServiceClient = new BlobServiceClient(connSA);
+
+                //BlobContainerClient container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+                BlobContainerClient container;
+
+                container = blobServiceClient.GetBlobContainerClient("news-banner-images");
+                if(!container.Exists())
+                {
+                    container = await blobServiceClient.CreateBlobContainerAsync("news-banner-images");
+                }
+
+                BlobClient blob = container.GetBlobClient(Article.Id.ToString() + ".png");
+
+                BinaryData bd = new BinaryData(ms.ToArray());
+                await blob.UploadAsync(content: bd, options: new BlobUploadOptions { HttpHeaders = new BlobHttpHeaders { ContentType = "image/png" } });
 
                 ms.Close();
                 ms.Dispose();
             }
-            
-            _context.Articles.Add(Article);
-            await _context.SaveChangesAsync();
 
             foreach (ArticleTag t in Tags)
             {

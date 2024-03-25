@@ -18,15 +18,8 @@
                 <input asp-for="Article.Title" class="form-control" />
                 <span asp-validation-for="Article.Title" class="text-danger"></span>
             </div>
-            @if (Model.Article.BannerImage != null)
-                {
-                    try
-                    {
-                        <img class="sponsor-image" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(Model.Article.BannerImage))" alt="@Model.Article.Title" />
-                    }
-                    catch (Exception e)
-                    { }
-                }
+
+            <img class="sponsor-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="this.className = 'd-none';" />
             <div class="form-group">
                 <label asp-for="Article.AuthorId" class="control-label"></label>
                 <input asp-for="Article.AuthorId" class="form-control" />
@@ -50,9 +43,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Image</label>
-                <input type="hidden" asp-for="Article.BannerImage" value="@(Convert.ToBase64String(Model.Article.BannerImage ?? []))" />
                 <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
-                <span asp-validation-for="Article.BannerImage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Categories</label>

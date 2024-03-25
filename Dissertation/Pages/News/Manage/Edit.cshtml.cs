@@ -8,16 +8,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
 
 namespace Dissertation.Pages.News.Manage
 {
     public class EditModel : PageModel
     {
         private readonly Dissertation.Data.DissertationContext _context;
+        private readonly IConfiguration _config;
 
-        public EditModel(Dissertation.Data.DissertationContext context)
+        public EditModel(Dissertation.Data.DissertationContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         [BindProperty]
@@ -59,7 +63,6 @@ namespace Dissertation.Pages.News.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Article.BannerImage = Article.BannerImage?.ToArray();
             Article.HomepageDisplay = HomepageDisplay;
 
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
@@ -73,7 +76,26 @@ namespace Dissertation.Pages.News.Manage
                 // copies file data into a memory stream and then into the object
                 MemoryStream ms = new MemoryStream();
                 Request.Form.Files[0].CopyTo(ms);
-                Article.BannerImage = ms.ToArray();
+
+                string connSA = _config["SECRET_SA"] ?? "";
+                if (connSA == "")
+                {
+                    connSA = _config.GetConnectionString("StorageAccount")!;
+                }
+                var blobServiceClient = new BlobServiceClient(connSA);
+
+                //BlobContainerClient container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+                BlobContainerClient container;
+                container = blobServiceClient.GetBlobContainerClient("news-banner-images");
+                if (!container.Exists())
+                {
+                    container = await blobServiceClient.CreateBlobContainerAsync("news-banner-images");
+                }
+
+                BlobClient blob = container.GetBlobClient(Article.Id.ToString() + ".png");
+
+                BinaryData bd = new BinaryData(ms.ToArray());
+                await blob.UploadAsync(content: bd, options: new BlobUploadOptions { HttpHeaders = new BlobHttpHeaders { ContentType = "image/png" } });
 
                 ms.Close();
                 ms.Dispose();
