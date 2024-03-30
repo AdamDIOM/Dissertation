@@ -372,3 +372,8 @@ color: #fff;
 background-color: #bb2d3b;
 border-color: #b02a37;
 }
+
+.news-row md-block img{
+    display:none;
+}
+
