@@ -179,7 +179,7 @@ main{
                 background-color: var(--secondary-dark);
             }
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 767px) {
     .tile {
         display: inherit;
         height: 6vh;
@@ -243,7 +243,7 @@ main{
     }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 767px) {
     .faq-row .col .accordion :nth-child(4n-2) .accordion-item, .faq-row :nth-child(4n-1) .accordion-item {
         border-color: var(--primary);
     }
