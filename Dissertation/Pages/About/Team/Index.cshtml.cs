@@ -19,11 +19,13 @@ namespace Dissertation.Pages.About.Team
             _context = context;
         }
 
-        public IList<Volunteer> Volunteer { get;set; } = default!;
+        public IList<Volunteer> Volunteer { get; set; } = default!;
+        public IList<VolunteerType> VolunteerTypes { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Volunteer = (await _context.Volunteer.ToListAsync()).OrderBy(v => v.PagePosition).ToList(); ;
+            Volunteer = (await _context.Volunteer.ToListAsync()).OrderBy(v => v.PagePosition).ToList();
+            VolunteerTypes = await _context.VolunteerType.ToListAsync();
         }
     }
 }
