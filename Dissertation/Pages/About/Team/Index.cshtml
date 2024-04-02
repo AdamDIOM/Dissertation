@@ -10,18 +10,16 @@
     @foreach(var type in Model.VolunteerTypes)
     {
         <h2>@type.Type</h2>
-        @{
-            var currentVolunteers = Model.Volunteer.Where(v => v.Type == type.Type).ToList();
-            foreach (var item in currentVolunteers)
-            {
-                var img = item.ImgUrl != null && item.ImgUrl != "" ? item.ImgUrl : "/img/team-member.png";
-                <div class="col col-12 col-sm-6 col-md-4 col-lg-3 team-wrapper">
-                    <div class="m-3 team-box text-center">
-                        <img src="@img" alt="@item.Name Headshot" class="team-img rounded mx-auto d-block mw-100" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
-                        <p class="mb-0"><b>@item.Name</b></p><p class="mb-0">@item.Title</p>
-                    </div>
+        var currentVolunteers = Model.Volunteer.Where(v => v.Type == type.Type).ToList();
+        foreach (var item in currentVolunteers)
+        {
+            var img = item.ImgUrl != null && item.ImgUrl != "" ? item.ImgUrl : "/img/team-member.png";
+            <div class="col col-12 col-sm-6 col-md-4 col-lg-3 team-wrapper">
+                <div class="m-3 team-box text-center">
+                    <img src="@img" alt="@item.Name Headshot" class="team-img rounded mx-auto d-block mw-100" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
+                    <p class="mb-0"><b>@item.Name</b></p><p class="mb-0">@item.Title</p>
                 </div>
-            }
+            </div>
         }
     }
     
