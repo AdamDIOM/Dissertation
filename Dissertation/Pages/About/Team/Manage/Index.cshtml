@@ -1,14 +1,14 @@
 ﻿@page
-@model Dissertation.Pages.About.Team.IndexModel
+@model Dissertation.Pages.About.Team.Manage.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Manage Volunteers</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -17,13 +17,10 @@
                 @Html.DisplayNameFor(model => model.Volunteer[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].LinkedInEnding)
+                Image
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].ImgUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].Level)
+                @Html.DisplayNameFor(model => model.Volunteer[0].Type)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Volunteer[0].Title)
@@ -40,14 +37,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkedInEnding)
+            <td class="image-column">
+                    @if(item.ImgUrl != null && item.ImgUrl != "")
+                    {
+                        <img src="@item.ImgUrl" alt="@($"{item.Name} Image")" class="mw-100" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
+                    }
+                    
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Level)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -56,9 +54,9 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn mb-1 w-100">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn mb-1 w-100">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn mb-1 w-100">Delete</a>
             </td>
         </tr>
 }

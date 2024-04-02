@@ -1,60 +1,21 @@
 ﻿@page
-@model Dissertation.Pages.About.Team.Manage.IndexModel
+@model Dissertation.Pages.About.Team.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Our Team</h1>
+<div class="row">
+    @foreach (var item in Model.Volunteer)
+    {
+        var img = item.ImgUrl != null && item.ImgUrl != "" ? item.ImgUrl : "/img/team-member.png";
+        <div class="col col-12 col-sm-6 col-md-4 col-lg-3 team-wrapper">
+            <div class="m-3 team-box text-center">
+                <img src="@img" alt="@item.Name Headshot" class="team-img rounded mx-auto d-block mw-100" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
+                <p class="mb-0"><b>@item.Name</b></p><p class="mb-0">@item.Title</p>
+            </div>
+        </div>
+    }
+</div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].LinkedInEnding)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].ImgUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].Level)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volunteer[0].Title)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Volunteer) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkedInEnding)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Level)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

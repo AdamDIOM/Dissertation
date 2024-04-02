@@ -23,7 +23,7 @@ namespace Dissertation.Pages.About.Team.Manage
 
         public async Task OnGetAsync()
         {
-            Volunteer = await _context.Volunteer.ToListAsync();
+            Volunteer = (await _context.Volunteer.ToListAsync()).OrderBy(v => v.PagePosition).ToList(); ;
         }
     }
 }

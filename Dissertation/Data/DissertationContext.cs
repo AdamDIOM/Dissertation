@@ -19,6 +19,7 @@ namespace Dissertation.Data
         public DbSet<Dissertation.Models.ArticleTag> ArticleTags { get; set; } = default!;
         public DbSet<Dissertation.Models.ArticleTagLink> ArticleTagLinks { get; set; } = default!;
         public DbSet<Dissertation.Models.Volunteer> Volunteer { get; set; } = default!;
+        public DbSet<Dissertation.Models.VolunteerType> VolunteerType { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

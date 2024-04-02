@@ -5,33 +5,35 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Volunteer</h4>
+<h1>Create Volunteer</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <div class="col-md-8">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Volunteer.Name" class="control-label"></label>
                 <input asp-for="Volunteer.Name" class="form-control" />
                 <span asp-validation-for="Volunteer.Name" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Volunteer.LinkedInEnding" class="control-label"></label>
-                <input asp-for="Volunteer.LinkedInEnding" class="form-control" />
-                <span asp-validation-for="Volunteer.LinkedInEnding" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volunteer.ImgUrl" class="control-label"></label>
-                <input asp-for="Volunteer.ImgUrl" class="form-control" />
+                <label class="control-label">Image</label>
+                <label asp-for="Volunteer.ImgUrl" class="control-label" hidden>Image URL</label>
+                <label for="file1" class="control-label" hidden>Image upload</label>
+                <input type="file" id="file1" name="file1" multiple="multiple" class="form-control mb-1" />
+                <input asp-for="Volunteer.ImgUrl" class="form-control" placeholder="or enter image URL" />
                 <span asp-validation-for="Volunteer.ImgUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Volunteer.Level" class="control-label"></label>
-                <input asp-for="Volunteer.Level" class="form-control" />
-                <span asp-validation-for="Volunteer.Level" class="text-danger"></span>
+                <label asp-for="Volunteer.Type" class="control-label"></label>
+                <select asp-for="Volunteer.Type" class="form-select">
+                    @foreach(var type in Model.VolunteerTypes)
+                    {
+                        <option value=@type.Type class="form-option">@type.Type</option>
+                    }
+                </select>
+                <span asp-validation-for="Volunteer.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Volunteer.Title" class="control-label"></label>
