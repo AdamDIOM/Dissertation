@@ -87,9 +87,9 @@ builder.Services.AddIdentity<SiteUser, IdentityRole>()
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    options.AccessDeniedPath = "/Auth/Access-Denied";
     options.LoginPath = "/Auth/Login";
     options.LogoutPath = "/Auth/Logout";
-    options.AccessDeniedPath = "/Auth/Login";
 });
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
