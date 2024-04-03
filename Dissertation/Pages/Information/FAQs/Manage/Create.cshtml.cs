@@ -37,6 +37,8 @@ namespace Dissertation.Pages.Information.FAQs.Manage
                 return Page();
             }
 
+            FAQ.PagePosition = await _context.FAQ.CountAsync();
+
             _context.FAQ.Add(FAQ);
             await _context.SaveChangesAsync();
 
