@@ -37,6 +37,23 @@
                                     <li><a class="dropdown-item" asp-page="/About/Contact">Contact Us</a>
                                 </ul>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    News
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-page="/News/Index">All</a></li>
+                                    @using Dissertation.Data;
+                                    @inject DissertationContext _context;
+                                    @{
+                                        var tags = _context.ArticleTags.ToList();
+                                        foreach(var tag in tags)
+                                        {
+                                            <li><a class="dropdown-item" asp-page="/News/Index" asp-route-filter="@tag.Id">@tag.Tag</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/News/Index">News</a>
                             </li>
@@ -63,16 +80,20 @@
                             @using Dissertation.Data;
                             @inject SignInManager<SiteUser> SignInManager;
                             @inject UserManager<SiteUser> UserManager;
+                            @inject DissertationContext _context;
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 var u = await UserManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
-
-                                
+                                var email = await UserManager.GetEmailAsync(u);
+                                Dissertation.Models.Volunteer user = null;
+                                if(email != null) user = _context.Volunteer.FirstOrDefault(v => v.Email == email);
+                                var text = email ?? "";
+                                if (user != null) text = user.Name;
 
                                     
                                 <li class="nav-item dropdown">
                                     <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @await UserManager.GetEmailAsync(u)
+                                        @text
                                     </a>
                                     <ul class="dropdown-menu">
                                         @if (await UserManager.IsInRoleAsync(u, "Admin"))
