@@ -45,6 +45,7 @@ html {
     }
 }
 
+
 .social-logo{
     height:2.5rem;
 }
@@ -405,4 +406,13 @@ border-color: #b02a37;
     .image-column{
         width:15%;
     }
+}
+
+
+.btn-clear {
+    background-color: initial;
+}
+
+.btn-clear:hover{
+    background-color:initial;
 }

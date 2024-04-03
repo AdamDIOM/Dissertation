@@ -16,6 +16,8 @@ namespace Dissertation.Pages.Auth
         [BindProperty]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string ReturnUrl { get; set; }
 
         private readonly SignInManager<SiteUser> _signInManager;
         private readonly UserManager<SiteUser> _userManager;
@@ -29,6 +31,11 @@ namespace Dissertation.Pages.Auth
         }
         public async Task OnGetAsync()
         {
+            ModelState.Remove("ReturnUrl");
+            if (ReturnUrl == null)
+            {
+                ReturnUrl = "";
+            }
             // creates site-admin@codeclub.im as default administrator
             var u = await _userManager.FindByEmailAsync("site-admin@codeclub.im");
             if (u == null)
@@ -53,23 +60,24 @@ namespace Dissertation.Pages.Auth
                 }
             }
         }
-        public async Task<IActionResult> OnPostLoginAsync()
+        public async Task<IActionResult> OnPostLoginAsync(string ReturnUrl = "/")
         {
+            ModelState.Remove("ReturnUrl");
             if (ModelState.IsValid && Email != null && Password != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(Email, Password, false, false);
                 if (result.Succeeded)
                 {
-                    return Redirect("/Index");
+                    return Redirect(ReturnUrl);
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Logon Attempt");
             }
             return Page();
         }
 
-        public IActionResult OnPostLoginMsft()
+        public IActionResult OnPostLoginMsft(string? ReturnUrl)
         {
-            var redirectUrl = Url.Page("./MSLogin", pageHandler: "Callback");
+            var redirectUrl = Url.Page("./MSLogin", pageHandler: "Callback", values: new { ReturnUrl});
             var properties = _signInManager.ConfigureExternalAuthenticationProperties("Microsoft", redirectUrl);
             return new ChallengeResult("Microsoft", properties);
         }

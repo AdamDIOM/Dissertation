@@ -18,12 +18,12 @@ namespace Dissertation.Pages.Auth
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        public async Task<IActionResult> OnGetCallbackAsync()
+        public async Task<IActionResult> OnGetCallbackAsync(string ReturnUrl ="/")
         {
             var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null) return RedirectToPage("../Index");
+            if (info == null) return Redirect(ReturnUrl);
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-            if (result.Succeeded) return RedirectToPage("../Index");
+            if (result.Succeeded) return Redirect(ReturnUrl);
             else
             {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
@@ -51,11 +51,11 @@ namespace Dissertation.Pages.Auth
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-                        return RedirectToPage("../Index");
+                        return Redirect(ReturnUrl);
                     }
                 }
             }
-            return RedirectToPage("Login");
+            return Redirect(ReturnUrl);
         }
     }
 }
