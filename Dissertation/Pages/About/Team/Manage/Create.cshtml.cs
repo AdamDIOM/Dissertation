@@ -40,7 +40,7 @@ namespace Dissertation.Pages.About.Team.Manage
             {
                 return Page();
             }
-
+            Volunteer.PagePosition = await _context.Volunteer.CountAsync();
             _context.Volunteer.Add(Volunteer);
             await _context.SaveChangesAsync();
 

@@ -53,7 +53,18 @@ namespace Dissertation.Pages.About.Team.Manage
             if (volunteer != null)
             {
                 Volunteer = volunteer;
+                var pos = Volunteer.PagePosition;
                 _context.Volunteer.Remove(Volunteer);
+                List<Volunteer> volunteers = await _context.Volunteer.ToListAsync();
+                foreach (var vol in volunteers)
+                {
+                    if(vol.PagePosition > pos)
+                    {
+                        vol.PagePosition--;
+                        _context.Attach(vol).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                    }
+                }
                 await _context.SaveChangesAsync();
             }
 
