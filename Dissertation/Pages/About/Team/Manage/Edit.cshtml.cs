@@ -10,6 +10,7 @@ using Dissertation.Data;
 using Dissertation.Models;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dissertation.Pages.About.Team.Manage
 {
@@ -17,16 +18,20 @@ namespace Dissertation.Pages.About.Team.Manage
     {
         private readonly Dissertation.Data.DissertationContext _context;
         private readonly IConfiguration _config;
+        private readonly UserManager<SiteUser> _um;
 
-        public EditModel(Dissertation.Data.DissertationContext context, IConfiguration config)
+        public EditModel(Dissertation.Data.DissertationContext context, IConfiguration config, UserManager<SiteUser> um)
         {
             _context = context;
             _config = config;
+            _um = um;
         }
 
         [BindProperty]
         public Volunteer Volunteer { get; set; } = default!;
         public IList<VolunteerType> VolunteerTypes { get; set; } = default!;
+        [BindProperty]
+        public bool AdminPermissions { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -42,6 +47,9 @@ namespace Dissertation.Pages.About.Team.Manage
                 return NotFound();
             }
             Volunteer = volunteer;
+            
+            AdminPermissions = Volunteer.AdminPermissions ?? false;
+
             return Page();
         }
 
@@ -52,6 +60,26 @@ namespace Dissertation.Pages.About.Team.Manage
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            Volunteer.AdminPermissions = AdminPermissions;
+            if(Volunteer.Email != null)
+            {
+                var user = await _um.FindByEmailAsync(Volunteer.Email);
+                if (user != null)
+                {
+                    if (Volunteer.AdminPermissions ?? false)
+                    {
+                        // give permissions
+                        await _um.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        // take permissions
+                        await _um.RemoveFromRoleAsync(user, "Admin");
+                    }
+                }
+                
             }
 
             if (move != null)

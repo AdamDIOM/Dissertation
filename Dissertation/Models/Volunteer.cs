@@ -16,5 +16,7 @@ namespace Dissertation.Models
         public string? Email { get; set; }
         [Required]
         public int PagePosition { get; set; }
+        [Required]
+        public bool? AdminPermissions { get; set; }
     }
 }

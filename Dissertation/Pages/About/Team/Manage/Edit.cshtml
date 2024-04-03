@@ -50,6 +50,12 @@
                 <input asp-for="Volunteer.Email" class="form-control" />
                 <span asp-validation-for="Volunteer.Email" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Volunteer.AdminPermissions" class="control-label">Site Admin Permissions</label>
+                <input type="hidden" asp-for="Volunteer.AdminPermissions" value="@true" />
+                <input type="checkbox" asp-for="AdminPermissions" />
+                <span asp-validation-for="AdminPermissions" class="text-danger"></span>
+            </div>
             <div class="form-group mt-1">
                 <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
                 <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
