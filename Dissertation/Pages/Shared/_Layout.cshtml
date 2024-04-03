@@ -85,7 +85,7 @@
                             {
                                 var u = await UserManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
                                 var email = await UserManager.GetEmailAsync(u);
-                                Dissertation.Models.Volunteer user = null;
+                                Dissertation.Models.Volunteer? user = null;
                                 if(email != null) user = _context.Volunteer.FirstOrDefault(v => v.Email == email);
                                 var text = email ?? "";
                                 if (user != null) text = user.Name;
