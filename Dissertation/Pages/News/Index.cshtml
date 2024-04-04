@@ -14,35 +14,42 @@
         <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="@((Model.filter ?? "") == tag.Id.ToString() ? "btn btn-highlight" : "btn")" asp-page-handler="Filter"/>
     }
 </form>
-<div class="row news-row">
-    @foreach (var item in Model.Article) {
-        <div class="col col-12 col-sm-6 col-lg-4 pb-3 d-flex">
-            <a asp-page="./Post" asp-route-id="@item.Id" class="d-flex">
-                <div class="article-preview flex-grow-1">
-                    <div class="banner-img-wrapper">
-                        <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{item.Id}.png")" alt="@item.Title" onerror="if (this.src != '/img/logo-169.png') this.src = '/img/logo-169.png';" />
-                    </div>
+@if (Model.Article.Count == 0)
+{
+    <h2>No posts found.</h2>
+}
+else
+{
+    <div class="row news-row">
+        @foreach (var item in Model.Article) {
+            <div class="col col-12 col-sm-6 col-lg-4 pb-3 d-flex">
+                <a asp-page="./Post" asp-route-id="@item.Id" class="d-flex">
+                    <div class="article-preview flex-grow-1">
+                        <div class="banner-img-wrapper">
+                            <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{item.Id}.png")" alt="@item.Title" onerror="if (this.src != '/img/logo-169.png') this.src = '/img/logo-169.png';" />
+                        </div>
             
-                    <hr />
-                    <h2>@item.Title</h2>
-                    <div class="preview-wrapper px-2">
-                        @{
-                            var words = (item.Content ?? "").Split(' ').Take(50);
-                            string output = "";
-                            foreach(var word in words)
-                            {
-                                output += word + " ";
+                        <hr />
+                        <h2>@item.Title</h2>
+                        <div class="preview-wrapper px-2">
+                            @{
+                                var words = (item.Content ?? "").Split(' ').Take(50);
+                                string output = "";
+                                foreach(var word in words)
+                                {
+                                    output += word + " ";
+                                }
+                                output = output.Trim();
+                                if ((item.Content ?? "").Split(' ').Count() > 50)
+                                {
+                                    output += "...";
+                                }
+                                <md-block>@output</md-block>
                             }
-                            output = output.Trim();
-                            if ((item.Content ?? "").Split(' ').Count() > 50)
-                            {
-                                output += "...";
-                            }
-                            <md-block>@output</md-block>
-                        }
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-    }
-</div>
+                </a>
+            </div>
+        }
+    </div>
+}
