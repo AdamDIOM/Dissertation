@@ -375,6 +375,10 @@ background-color: #bb2d3b;
 border-color: #b02a37;
 }
 
+.btn-danger:focus{
+    background-color:#f44;
+}
+
 .news-row md-block img{
     display:none;
 }
@@ -421,4 +425,8 @@ border-color: #b02a37;
 .news-nav-dropdown{
     max-height:20vh;
     overflow-y:auto;
+}
+
+textarea{
+    height:40vh;
 }
