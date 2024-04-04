@@ -46,7 +46,7 @@
                                     @using Dissertation.Data;
                                     @inject DissertationContext _context;
                                     @{
-                                        var tags = _context.ArticleTags.ToList();
+                                        var tags = _context.ArticleTags.Where(t => t.NavDisplay ?? false).ToList();
                                         foreach(var tag in tags)
                                         {
                                             <li><a class="dropdown-item" asp-page="/News/Index" asp-route-filter="@tag.Id">@tag.Tag</a></li>
