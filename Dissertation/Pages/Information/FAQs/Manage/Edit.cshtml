@@ -5,40 +5,40 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>FAQ</h4>
+<h1>Edit Question and Answer</h1>
 <hr />
-<div class="row">
-    <div class="col">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FAQ.Id" />
-            <input type="hidden" asp-for="FAQ.PagePosition" />
-            <div class="form-group">
-                <label asp-for="FAQ.Question" class="control-label"></label>
-                <input asp-for="FAQ.Question" class="form-control" />
-                <span asp-validation-for="FAQ.Question" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FAQ.Answer" class="control-label"></label>
-                <textarea asp-for="FAQ.Answer" class="form-control"></textarea>
-                <span asp-validation-for="FAQ.Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
-                <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+<form method="post">
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="FAQ.Question" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="FAQ.Question" class="form-control" />
+            <span asp-validation-for="FAQ.Question" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="FAQ.Answer" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <textarea asp-for="FAQ.Answer" class="form-control"></textarea>
+            <span asp-validation-for="FAQ.Answer" class="text-danger"></span>
+            <p><a href="https://www.markdownguide.org/cheat-sheet/" rel="noreferrer" target="_blank">Markdown</a> formatting is supported and encouraged!</p>
+        </dd>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="FAQ.Id" />
+        <input type="hidden" asp-for="FAQ.PagePosition" />
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
+            <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
+        </dd>
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-page="./Index" class="btn btn-danger">Back to List</a>
+        </dd>
+    </dl>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
