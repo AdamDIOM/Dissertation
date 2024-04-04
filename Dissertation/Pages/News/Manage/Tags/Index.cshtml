@@ -1,0 +1,46 @@
+﻿@page
+@model Dissertation.Pages.News.Manage.Tags.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleTag[0].Tag)
+            </th>
+            <th>
+                Display on Navbar?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ArticleTag) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                    @if(item.NavDisplay ?? false)
+                    {
+                        <input type="checkbox" checked disabled />
+                    }
+                    else{
+                        <input type="checkbox" disabled />
+                    }
+            </td>
+            <td>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

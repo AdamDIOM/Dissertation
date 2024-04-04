@@ -1,0 +1,35 @@
+﻿@page
+@model Dissertation.Pages.News.Manage.Tags.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Tag</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ArticleTag.Tag" class="control-label"></label>
+                <input asp-for="ArticleTag.Tag" class="form-control" />
+                <span asp-validation-for="ArticleTag.Tag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArticleTag.NavDisplay" class="control-label">Display on Navigation bar?</label>
+                <input type="hidden" asp-for="ArticleTag.NavDisplay" value="@true" />
+                <input type="checkbox" asp-for="NavDisplay" />
+                <span asp-validation-for="ArticleTag.NavDisplay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-danger">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
