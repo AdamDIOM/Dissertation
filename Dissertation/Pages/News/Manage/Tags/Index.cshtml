@@ -5,10 +5,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Manage Tags</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn">Create New</a>
+    <a asp-page="../Index" class="btn">Return to News</a>
 </p>
 <table class="table">
     <thead>
@@ -23,24 +24,34 @@
         </tr>
     </thead>
     <tbody>
+        <form method="post">
 @foreach (var item in Model.ArticleTag) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Tag)
             </td>
-            <td>
-                    @if(item.NavDisplay ?? false)
-                    {
+                @if (item.NavDisplay ?? false)
+                {
+                    <td>
                         <input type="checkbox" checked disabled />
-                    }
-                    else{
+                    </td>
+                    <td>
+                        <button asp-page-handler="Hide" asp-route-id="@item.Id" class="btn btn-danger">Hide from Nav bar</button>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                }
+                else{
+
+                    <td>
                         <input type="checkbox" disabled />
-                    }
-            </td>
-            <td>
-                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-            </td>
+                    </td>
+                    <td>
+                        <button asp-page-handler="Show" asp-route-id="@item.Id" class="btn">Show on Nav bar</button>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                }
         </tr>
 }
+        </form>
     </tbody>
 </table>
