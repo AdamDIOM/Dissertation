@@ -41,7 +41,7 @@
                                 <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     News
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu news-nav-dropdown">
                                     <li><a class="dropdown-item" asp-page="/News/Index">All</a></li>
                                     @using Dissertation.Data;
                                     @inject DissertationContext _context;
@@ -66,9 +66,6 @@
                                     <li><a class="dropdown-item" asp-page="/Information/Volunteering">Volunteering</a>
                                     <li><a class="dropdown-item" asp-page="/Information/Sponsors/Index">Sponsors</a>
                                 </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                             </li>
                         </ul>
                         <hr class="d-lg-none"/>
