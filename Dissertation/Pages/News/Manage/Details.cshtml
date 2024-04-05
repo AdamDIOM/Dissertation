@@ -2,7 +2,7 @@
 @model Dissertation.Pages.News.Manage.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = $"Details – {Model.Article.Title}";
 }
 
 <h1>@Model.Article.Title - Details</h1>

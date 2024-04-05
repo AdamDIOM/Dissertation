@@ -2,7 +2,7 @@
 @model Dissertation.Pages.News.PostModel
 
 @{
-    ViewData["Title"] = "Post";
+    ViewData["Title"] = $"{Model.Article.Title} | News";
 }
 
 <h1>@Model.Article.Title</h1>
