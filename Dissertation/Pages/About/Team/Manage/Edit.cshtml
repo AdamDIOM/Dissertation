@@ -7,67 +7,78 @@
 
 <h1>Edit - @Model.Volunteer.Name</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Volunteer.Id" />
-            <input type="hidden" asp-for="Volunteer.PagePosition" />
-            <div class="form-group">
-                <label asp-for="Volunteer.Name" class="control-label"></label>
-                <input asp-for="Volunteer.Name" class="form-control" />
-                <span asp-validation-for="Volunteer.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Image</label> 
-                @if (Model.Volunteer.ImgUrl != null && Model.Volunteer.ImgUrl != "")
+<form method="post" enctype="multipart/form-data">
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Volunteer.Name" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Volunteer.Name" class="form-control" />
+            <span asp-validation-for="Volunteer.Name" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label class="control-label">Image</label>
+            <label asp-for="Volunteer.ImgUrl" class="control-label" hidden>Image URL</label>
+            <label for="file1" class="control-label" hidden>Image upload</label>
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Volunteer.ImgUrl != null && Model.Volunteer.ImgUrl != "")
+            {
+                <img src="@Model.Volunteer.ImgUrl" alt="@($"{Model.Volunteer.Name} Image")" class="mb-2 edit-team-img" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
+            }
+            <input type="file" id="file1" name="file1" multiple="multiple" class="form-control mb-1" />
+            <input asp-for="Volunteer.ImgUrl" class="form-control" placeholder="or enter image URL" />
+            <span asp-validation-for="Volunteer.ImgUrl" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Volunteer.Type" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <select asp-for="Volunteer.Type" class="form-select">
+                @foreach (var type in Model.VolunteerTypes)
                 {
-                    <img src="@Model.Volunteer.ImgUrl" alt="@($"{Model.Volunteer.Name} Image")" class="mw-100 mb-2" onerror="if (this.src != '/img/team-member.png') this.src = '/img/team-member.png';" />
+                    <option value=@type.Type class="form-option">@type.Type</option>
                 }
-                <label asp-for="Volunteer.ImgUrl" class="control-label" hidden>Image URL</label>
-                <label for="file1" class="control-label" hidden>Image upload</label>
-                <input type="file" id="file1" name="file1" multiple="multiple" class="form-control mb-1" />
-                <input asp-for="Volunteer.ImgUrl" class="form-control" placeholder="or enter image URL" />
-                <span asp-validation-for="Volunteer.ImgUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volunteer.Type" class="control-label"></label>
-                <select asp-for="Volunteer.Type" class="form-select">
-                    @foreach (var type in Model.VolunteerTypes)
-                    {
-                        <option value=@type.Type class="form-option">@type.Type</option>
-                    }
-                </select>
-                <span asp-validation-for="Volunteer.Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volunteer.Title" class="control-label"></label>
-                <input asp-for="Volunteer.Title" class="form-control" />
-                <span asp-validation-for="Volunteer.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volunteer.Email" class="control-label"></label>
-                <input asp-for="Volunteer.Email" class="form-control" />
-                <span asp-validation-for="Volunteer.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Volunteer.AdminPermissions" class="control-label">Site Admin Permissions</label>
-                <input type="hidden" asp-for="Volunteer.AdminPermissions" value="@true" />
-                <input type="checkbox" asp-for="AdminPermissions" />
-                <span asp-validation-for="AdminPermissions" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
-                <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
-            </div>
-            <div class="form-group mt-1">
-                <input type="submit" value="Save" class="btn btn-primary" />
-
-                <a asp-page="./Index" class="btn btn-danger">Back to List</a>
-            </div>
-        </form>
-    </div>
-</div>
+            </select>
+            <span asp-validation-for="Volunteer.Type" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Volunteer.Title" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Volunteer.Title" class="form-control" />
+            <span asp-validation-for="Volunteer.Title" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Volunteer.Email" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Volunteer.Email" class="form-control" />
+            <span asp-validation-for="Volunteer.Email" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Volunteer.AdminPermissions" class="control-label">Site Admin Permissions</label>
+        </dt>
+        <dd class="col-sm-10">
+            <input type="hidden" asp-for="Volunteer.AdminPermissions" value="@true" />
+            <input type="checkbox" asp-for="AdminPermissions" />
+            <span asp-validation-for="AdminPermissions" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10 mt-1">
+            <input type="submit" value="Move up" class="btn btn-secondary" asp-route-move="up" />
+            <input type="submit" value="Move down" class="btn btn-secondary" asp-route-move="down" />
+        </dd>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Volunteer.Id" />
+        <input type="hidden" asp-for="Volunteer.PagePosition" />
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10 mt-1">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-page="./Index" class="btn btn-danger">Back to List</a>
+        </dd>
+    </dl>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -430,3 +430,9 @@ border-color: #b02a37;
 textarea{
     height:40vh;
 }
+
+.edit-team-img{
+    max-height:40vh;
+    width:auto;
+    max-width:50%;
+}
