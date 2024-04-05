@@ -32,14 +32,21 @@ namespace Dissertation.Pages.About.Team.Manage
         [BindProperty]
         public Volunteer Volunteer { get; set; } = default!;
         public IList<VolunteerType> VolunteerTypes { get; set; } = default!;
+        [BindProperty]
+        public bool AdminPermissions { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            VolunteerTypes = await _context.VolunteerType.ToListAsync();
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+
+            Volunteer.AdminPermissions = AdminPermissions;
+
             Volunteer.PagePosition = await _context.Volunteer.CountAsync();
             _context.Volunteer.Add(Volunteer);
             await _context.SaveChangesAsync();
