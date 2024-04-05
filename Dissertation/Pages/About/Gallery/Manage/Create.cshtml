@@ -1,0 +1,61 @@
+﻿@page
+@model Dissertation.Pages.About.Gallery.Manage.CreateModel
+
+@{
+    ViewData["Title"] = "Upload Gallery Image";
+}
+
+<h1>Upload Gallery Image</h1>
+
+<hr />
+<form method="post" enctype="multipart/form-data">
+    <dl class="row">
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Image.Caption" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Image.Caption" class="form-control" />
+            <span asp-validation-for="Image.Caption" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Image.Description" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Image.Description" class="form-control" />
+            <span asp-validation-for="Image.Description" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Image.Link" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Image.Link" class="form-control" />
+            <span asp-validation-for="Image.Link" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Image.HomepageBannerDisplay" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input type="hidden" asp-for="Image.HomepageBannerDisplay" value="@true" />
+            <input type="checkbox" asp-for="HomepageDisplay" />
+            <span asp-validation-for="Image.HomepageBannerDisplay" class="text-danger"></span>
+        </dd>
+        <input type="hidden" asp-for="Image.UploadedBy" value="@Model.UploadedBy" />
+        <input type="hidden" asp-for="UploadedBy" value="@Model.UploadedBy" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-danger">Back to List</a>
+        </dd>
+    </dl>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

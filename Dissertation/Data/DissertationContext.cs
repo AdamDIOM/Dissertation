@@ -28,5 +28,6 @@ namespace Dissertation.Data
         }
         public DbSet<Dissertation.Models.FAQ> FAQ { get; set; } = default!;
         public DbSet<Dissertation.Models.Sponsor> Sponsor { get; set; } = default!;
+        public DbSet<Dissertation.Models.Image> Image { get; set; } = default!;
     }
 }
