@@ -8,58 +8,72 @@
 <h1>Create News Article</h1>
 
 <hr />
-<div class="row">
-    <div class="col">
-        <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Article.Title" class="control-label"></label>
-                <input asp-for="Article.Title" class="form-control" />
-                <span asp-validation-for="Article.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Article.AuthorId" class="control-label">Author</label>
-                <input asp-for="Author" hidden />
-                <input asp-for="Article.AuthorId" class="form-control" value = "@Model.Author"/>
-                <span asp-validation-for="Article.AuthorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Article.Content" class="control-label"></label>
-                <textarea asp-for="Article.Content" class="form-control" ></textarea>
-                <span asp-validation-for="Article.Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Article.PublishDate" class="control-label"></label>
-                <input asp-for="Article.PublishDate" class="form-control" />
-                <span asp-validation-for="Article.PublishDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Article.HomepageDisplay" class="control-label">Display on Homepage?</label>
-                <input type="hidden" asp-for="Article.HomepageDisplay" value="@true" />
-                <input type="checkbox" asp-for="HomepageDisplay" />
-                <span asp-validation-for="HomepageDisplay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Image</label>
-                <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
-            </div> 
-            <div class="form-group">
-                <label class="control-label">Categories</label>
-                @foreach (var tag in Model.Tags)
-                {
-                    <div class="form-check form-check-inline">
-                         <input class="btn-check" type="checkbox" id="@($"tagbox-{tag.Id}")" name="@($"tagbox-{tag.Id}")" value="true" />
-                        <label class="btn btn-outline-primary" for="@($"tagbox-{tag.Id}")">@tag.Tag</label>
-                    </div>
-                }
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-page="Index" class="btn btn-danger">Back to List</a>
-            </div>
-        </form>
-    </div>
-</div>
+
+<form method="post" enctype="multipart/form-data">
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Article.Title" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Article.Title" class="form-control" />
+            <span asp-validation-for="Article.Title" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Article.AuthorId" class="control-label">Author</label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Author" hidden />
+            <input asp-for="Article.AuthorId" class="form-control" value="@Model.Author" />
+            <span asp-validation-for="Article.AuthorId" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Article.Content" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <textarea asp-for="Article.Content" class="form-control"></textarea>
+            <span asp-validation-for="Article.Content" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Article.PublishDate" class="control-label">Publish Date and Time</label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Article.PublishDate" class="form-control" />
+            <span asp-validation-for="Article.PublishDate" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Article.HomepageDisplay" class="control-label">Display on Homepage?</label>
+        </dt>
+        <dd class="col-sm-10">
+            <input type="hidden" asp-for="Article.HomepageDisplay" value="@true" />
+            <input type="checkbox" asp-for="HomepageDisplay" />
+            <span asp-validation-for="HomepageDisplay" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            <label class="control-label">Banner Image</label>
+        </dt>
+        <dd class="col-sm-10">
+            <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
+        </dd>
+        <dt class="col-sm-2">
+            <label class="control-label">Categories</label>
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="form-check form-check-inline ps-0 pe-1">
+                    <input class="btn-check" type="checkbox" id="@($"tagbox-{tag.Id}")" name="@($"tagbox-{tag.Id}")" value="true" />
+                    <label class="btn btn-outline-primary" for="@($"tagbox-{tag.Id}")">@tag.Tag</label>
+                </div>
+            }
+        </dd>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-danger">Back to List</a>
+        </dd>
+    </dl>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

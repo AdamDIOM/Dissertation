@@ -17,7 +17,7 @@
             @Html.DisplayFor(model => model.Article.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Article.AuthorId)
+            Author
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Article.AuthorId)
@@ -29,22 +29,29 @@
             <md-block>@Html.DisplayFor(model => model.Article.Content)</md-block>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Article.PublishDate)
+            Publish Date and Time
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Article.PublishDate)
+            @((Model.Article.PublishDate ?? DateTime.Now).ToString("HH:mm, dd/MM/yyyy"))
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Article.HomepageDisplay)
+            Displayed on Homepage?
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Article.HomepageDisplay)
+            @if(Model.Article.HomepageDisplay ?? false)
+            {
+                <input type="checkbox" checked />
+            }
+            else
+            {
+                <input type="checkbox" />
+            }
         </dd>
         <dt class="col-sm-2">
             Banner Image
         </dt>
         <dd class="col-sm-10">
-            <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="this.className = 'd-none';" />
+            <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="if (this.src != '/img/logo-169.png') {this.src = '/img/logo-169.png'; this.className = 'w-25';}" />
         </dd>
         <dt class="col-sm-2">
             Tags
