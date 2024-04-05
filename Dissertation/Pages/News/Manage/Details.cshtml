@@ -51,7 +51,7 @@
             Banner Image
         </dt>
         <dd class="col-sm-10">
-            <img class="banner-image w-25" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="if (this.src != '/img/logo-169.png') {this.src = '/img/logo-169.png'; this.className = 'w-25';}" />
+            <img class="w-25" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="if (this.src != '/img/logo-169.png') this.src = '/img/logo-169.png';" />
         </dd>
         <dt class="col-sm-2">
             Tags
