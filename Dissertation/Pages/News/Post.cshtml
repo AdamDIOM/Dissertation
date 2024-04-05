@@ -5,10 +5,11 @@
     ViewData["Title"] = $"{Model.Article.Title} | News";
 }
 
+<img class="header-image mw-100" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="this.className = 'd-none';" />
 <h1>@Model.Article.Title</h1>
-<img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{Model.Article.Id}.png")" alt="@Model.Article.Title" onerror="this.className = 'd-none';" />
+
 <div>
-    <h4>@Model.Article.AuthorId | @Model.Article.PublishDate</h4>
+    <h4>@Model.Article.AuthorId @(Model.Article.PublishDate != null ? $"| {(Model.Article.PublishDate ?? DateTime.Now).ToString("HH:mm, dd/MM/yyyy")}" : "")</h4>
     <ul class="ps-0">
         @foreach(var t in Model.Tags)
         {
@@ -17,11 +18,11 @@
     </ul>
     <hr />
     <dl class="row">
-        <md-block class="mx-4">
+        <md-block>
             @Model.Article.Content
         </md-block>
     </dl>
 </div>
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index" class="btn">View all News Posts</a>
 </div>
