@@ -8,7 +8,7 @@
 <h1>Gallery</h1>
 
 @foreach (var item in Model.Image) {
-    <img src="https://dissertationad.blob.core.windows.net/gallery/{item.Id}.png" alt="@item.Caption" class="vh-25" />
+    <img src="@($"https://dissertationad.blob.core.windows.net/gallery/{item.Id}.png")" alt="@item.Caption" class="vw-25" />
             
                 @* @Html.DisplayFor(modelItem => item.Caption)
                 @Html.DisplayFor(modelItem => item.Description)

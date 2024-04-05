@@ -442,3 +442,7 @@ textarea{
     object-fit:contain;
     height:25vh;
 }
+
+.vw-25{
+    width:25vw;
+}
