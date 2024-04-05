@@ -21,6 +21,7 @@
                 Display on Navbar?
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +36,10 @@
                     <td>
                         <input type="checkbox" checked disabled />
                     </td>
-                    <td>
+                    <td class="text-end">
                         <button asp-page-handler="Hide" asp-route-id="@item.Id" class="btn btn-danger">Hide from Nav bar</button>
+                    </td>
+                    <td>
                         <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                     </td>
                 }
@@ -45,8 +48,10 @@
                     <td>
                         <input type="checkbox" disabled />
                     </td>
-                    <td>
+                    <td class="text-end">
                         <button asp-page-handler="Show" asp-route-id="@item.Id" class="btn">Show on Nav bar</button>
+                    </td>
+                    <td>
                         <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                     </td>
                 }
