@@ -2,6 +2,7 @@ using Dissertation.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Security.Claims;
 
 namespace Dissertation.Pages.Auth
@@ -23,7 +24,15 @@ namespace Dissertation.Pages.Auth
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null) return Redirect(ReturnUrl);
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-            if (result.Succeeded) return Redirect(ReturnUrl);
+            if (result.Succeeded)
+            {
+                SiteUser? user = await _userManager.GetUserAsync(User);
+                if(user != null)
+                {
+                    var hasRole = await _userManager.IsInRoleAsync(user, "Volunteer");
+                }
+                return Redirect(ReturnUrl);
+            }
             else
             {
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
@@ -48,6 +57,10 @@ namespace Dissertation.Pages.Auth
                                     await _userManager.AddToRoleAsync(user, "Volunteer");
                                 }
                             }
+                        }
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(user, "Volunteer");
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
