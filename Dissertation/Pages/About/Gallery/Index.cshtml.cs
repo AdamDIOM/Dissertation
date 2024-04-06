@@ -42,10 +42,5 @@ namespace Dissertation.Pages.About.Gallery
             return Page();
         }
 
-        public void HandleKeyDown(KeyboardEventArgs e)
-        {
-            var pressedKey = e.Key;
-            
-        }
     }
 }
