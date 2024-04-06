@@ -91,7 +91,7 @@ namespace Dissertation.Pages.About.Gallery.Manage
             }
 
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Index");
         }
     }
 }
