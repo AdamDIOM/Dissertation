@@ -40,7 +40,15 @@
         </dt>
         <dd class="col-sm-10">
             <input type="hidden" asp-for="Image.HomepageBannerDisplay" value="@true" />
-            <input type="checkbox" asp-for="HomepageDisplay" />
+            @if (Model.AdminUser)
+            {
+                <input type="checkbox" asp-for="HomepageDisplay" />
+            }
+            else
+            {
+                <input type="checkbox" asp-for="HomepageDisplay" disabled />
+                <input type="checkbox" asp-for="HomepageDisplay" hidden />
+            }
             <span asp-validation-for="Image.HomepageBannerDisplay" class="text-danger"></span>
         </dd>
         <dt class="col-sm-2">

@@ -34,6 +34,9 @@ namespace Dissertation.Pages.About.Gallery.Manage
             if (email != null) user = _context.Volunteer.FirstOrDefault(v => v.Email == email);
             UploadedBy = email ?? "Volunteer";
             if (user != null && user.Name != null) UploadedBy = user.Name;
+
+            AdminUser = (user != null && (await _userManager.IsInRoleAsync(u, "Admin")));
+
             return Page();
         }
 
@@ -43,10 +46,22 @@ namespace Dissertation.Pages.About.Gallery.Manage
         public bool HomepageDisplay { get; set; } = default!;
         [BindProperty]
         public string UploadedBy { get; set; } = default!;
+        [BindProperty]
+        public bool AdminUser { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+
+            var u = await _userManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
+            var email = await _userManager.GetEmailAsync(u);
+            Volunteer? user = null;
+            if (email != null) user = _context.Volunteer.FirstOrDefault(v => v.Email == email);
+            UploadedBy = email ?? "Volunteer";
+            if (user != null && user.Name != null) UploadedBy = user.Name;
+
+            AdminUser = (user != null && (await _userManager.IsInRoleAsync(u, "Admin")));
+
             Image.HomepageBannerDisplay = HomepageDisplay;
 
             ModelState.Remove(UploadedBy);

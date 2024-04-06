@@ -8,22 +8,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dissertation.Pages.About.Gallery.Manage
 {
     public class EditModel : PageModel
     {
         private readonly Dissertation.Data.DissertationContext _context;
+        private readonly UserManager<SiteUser> _userManager;
 
-        public EditModel(Dissertation.Data.DissertationContext context)
+        public EditModel(Dissertation.Data.DissertationContext context, UserManager<SiteUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
         public Image Image { get; set; } = default!;
         [BindProperty]
         public bool HomepageDisplay { get; set; } = default!;
+        [BindProperty]
+        public bool AdminUser { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -40,6 +45,11 @@ namespace Dissertation.Pages.About.Gallery.Manage
             Image = image;
 
             HomepageDisplay = Image.HomepageBannerDisplay ?? true;
+
+            var u = await _userManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
+
+            AdminUser = (u != null && (await _userManager.IsInRoleAsync(u, "Admin")));
+
             return Page();
         }
 
@@ -48,6 +58,10 @@ namespace Dissertation.Pages.About.Gallery.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             Image.HomepageBannerDisplay = HomepageDisplay;
+
+            var u = await _userManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
+
+            AdminUser = (u != null && (await _userManager.IsInRoleAsync(u, "Admin")));
 
             if (!ModelState.IsValid)
             {
