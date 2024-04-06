@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Dissertation.Pages.About.Gallery
 {
@@ -19,11 +20,32 @@ namespace Dissertation.Pages.About.Gallery
             _context = context;
         }
 
-        public IList<Image> Image { get;set; } = default!;
+        public IList<Image> Images { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public Image? Image { get; set; }
+        public int? Before { get; set; }
+        public int? After { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? image)
         {
-            Image = await _context.Image.ToListAsync();
+            Images = await _context.Image.ToListAsync();
+
+            if(image == null || Images == null)
+            {
+                return Page();
+            }
+
+            Image = Images.First(i => i.Id == image!);
+
+            Before = Images.TakeWhile(i => i.Id != image).DefaultIfEmpty(Images.Last()).Last().Id;
+            After = Images.SkipWhile(i => i.Id != image).Skip(1).DefaultIfEmpty(Images.First()).First().Id;
+            return Page();
+        }
+
+        public void HandleKeyDown(KeyboardEventArgs e)
+        {
+            var pressedKey = e.Key;
+            
         }
     }
 }

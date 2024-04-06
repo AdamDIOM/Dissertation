@@ -6,14 +6,47 @@
 }
 
 <h1>Gallery</h1>
+<div class="img-wrapper">
 
-@foreach (var item in Model.Image) {
-    <img src="@($"https://dissertationad.blob.core.windows.net/gallery/{item.Id}.png")" alt="@item.Caption" class="vw-25" />
+    @foreach (var item in Model.Images) {
+        <a asp-route-image="@item.Id"><img src="@($"https://dissertationad.blob.core.windows.net/gallery/{item.Id}.png")" alt="@item.Caption" class="gallery-image" /></a>
             
-                @* @Html.DisplayFor(modelItem => item.Caption)
-                @Html.DisplayFor(modelItem => item.Description)
-                @Html.DisplayFor(modelItem => item.Link)
-            
-                @Html.DisplayFor(modelItem => item.UploadedBy) *@
+                    @* 
+                    @Html.DisplayFor(modelItem => item.Link)
+                     *@
 
+    }
+
+</div>
+
+@if(Model.Image != null)
+{
+    <div class="full-image-wrapper">
+        <div class="px-3 w-100 d-flex justify-content-end">
+            <a asp-page="./Index" class="btn text-light btn-close btn-close-light" aria-label="Close"></a>
+        </div>
+        <div class="row">
+            <div class="col-1 d-flex align-items-center text-center">
+                <a asp-route-image="@Model.Before" class="btn p-2 text-light" aria-label="Previous Image">&lt</a>
+            </div>
+            <div class="col-10">
+                <div class="w-100 d-flex justify-content-center">
+					<img src="@($"https://dissertationad.blob.core.windows.net/gallery/{Model.Image.Id}.png")" alt="@Model.Image.Caption" class="full-image" />
+                </div>
+                
+                <div class="image-caption text-center mt-3 p-2 text-light">
+                    <h5>@Model.Image.Caption</h5>
+                    <p>@Model.Image.Description</p>
+                    @if(Model.Image.Link != null && Model.Image.Link != "")
+                    {
+                        <a class="btn btn-highlight" href="@Model.Image.Link">Learn More</a>
+                    }
+                </div>
+            </div>
+            <div class="col-1 d-flex align-items-center text-center">
+                <a asp-route-image="@Model.After" class="btn p-2 text-light" aria-label="Next Image">&gt</a>
+            </div>
+        </div>
+        
+    </div>
 }
