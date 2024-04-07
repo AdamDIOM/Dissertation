@@ -23,7 +23,7 @@ namespace Dissertation.Pages.News.Manage
 
         public async Task OnGetAsync()
         {
-            Article = await _context.Articles.OrderByDescending(a => a.PublishDate).ToListAsync();
+            Article = await _context.Articles.OrderBy(a => a.PublishDate != null).ThenByDescending(a => a.PublishDate).ToListAsync();
         }
     }
 }

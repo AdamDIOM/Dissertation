@@ -29,10 +29,24 @@
             <md-block>@Html.DisplayFor(model => model.Article.Content)</md-block>
         </dd>
         <dt class="col-sm-2">
-            Publish Date and Time
+            Publish Date and Time (Your local time)
         </dt>
         <dd class="col-sm-10">
-            @((Model.Article.PublishDate ?? DateTime.Now).ToString("HH:mm, dd/MM/yyyy"))
+            @if (Model.Article.PublishDate != null)
+            {
+                if (Model.Article.PublishDate < DateTime.UtcNow)
+                {
+                    <p>@(((Model.Article.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                }
+                else
+                {
+                    <p class="text-danger">@(((Model.Article.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                }
+            }
+            else
+            {
+                <p class="text-danger">Draft</p>
+            }
         </dd>
         <dt class="col-sm-2">
             Displayed on Homepage?

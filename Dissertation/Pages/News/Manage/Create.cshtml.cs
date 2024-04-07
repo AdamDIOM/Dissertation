@@ -57,6 +57,7 @@ namespace Dissertation.Pages.News.Manage
         {
             //Article.BannerImage = new byte[0];
             Article.HomepageDisplay = HomepageDisplay;
+            Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Tags = await _context.ArticleTags.ToListAsync();
             if (!ModelState.IsValid)
             {

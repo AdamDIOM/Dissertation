@@ -22,7 +22,7 @@
                 Author
             </th>
             <th>
-                Publish Date and Time
+                Publish Date and Time (your local time)
             </th>
             <th></th>
         </tr>
@@ -37,7 +37,21 @@
                 @Html.DisplayFor(modelItem => item.AuthorId)
             </td>
             <td>
-                @((item.PublishDate ?? DateTime.Now).ToString("HH:mm, dd/MM/yyyy"))
+                    @if (item.PublishDate != null)
+                    {
+                        if(item.PublishDate < DateTime.UtcNow)
+                        {
+                            <p>@(((item.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">@(((item.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-danger">Draft</p>
+                    }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id" class="btn">Edit</a>

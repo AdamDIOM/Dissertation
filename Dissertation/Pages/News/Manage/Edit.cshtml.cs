@@ -47,6 +47,8 @@ namespace Dissertation.Pages.News.Manage
             Article = article;
             HomepageDisplay = Article.HomepageDisplay ?? true;
 
+            Article.PublishDate = Article.PublishDate + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
             ChosenTags = new List<ArticleTag>();
@@ -63,6 +65,7 @@ namespace Dissertation.Pages.News.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Article.HomepageDisplay = HomepageDisplay;
 
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
