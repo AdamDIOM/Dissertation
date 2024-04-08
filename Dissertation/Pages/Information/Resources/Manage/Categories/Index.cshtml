@@ -1,0 +1,36 @@
+﻿@page
+@model Dissertation.Pages.Information.Resources.Manage.Categories.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Resource Categories";
+}
+
+<h1>Manage Resource Categories</h1>
+
+<p>
+    <a asp-page="Create" class="btn">Create New Resource Category</a>
+    <a asp-page="../Index" class="btn btn-highlight">Return to Resoure Manager</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Category
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ResourceType) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn">Edit</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

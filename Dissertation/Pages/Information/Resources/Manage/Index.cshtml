@@ -1,0 +1,55 @@
+﻿@page
+@model Dissertation.Pages.Information.Resources.Manage.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Resources";
+}
+
+<h1>Manage Resources</h1>
+
+<p>
+    <a asp-page="Create" class="btn">Create New Resource</a>
+    <a asp-page="Categories/Index" class="btn">Manage Categories</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource[0].Link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Resource) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                    @(Model.ResourceType.FirstOrDefault(t => t.Id == item.Category) == null ? "Uncategorised" : Model.ResourceType.FirstOrDefault(t => t.Id == item.Category)!.Type)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn w-100 mb-1">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn w-100 mb-1">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger w-100">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

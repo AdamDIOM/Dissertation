@@ -1,0 +1,48 @@
+﻿@page
+@model Dissertation.Pages.Information.Resources.IndexModel
+
+@{
+    ViewData["Title"] = "Learn to Code";
+}
+
+<h1>Learn to Code - Resources</h1>
+<div class="accordion" id="resourceAccordion">
+    
+    @foreach(var category in Model.ResourceType)
+    {
+        if (!Model.Resource.Any(r => r.Category == category.Id)) continue;
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="@($"heading{category.Id}")">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@($"#collapse{category.Id}")" aria-expanded="false" aria-controls="@($"collapse{category.Id}")">
+                    @category.Type
+                </button>
+            </h2>
+            <div id="@($"collapse{category.Id}")" class="accordion-collapse collapse" aria-labelledby="@($"heading{category.Id}")" data-bs-parent="#resourceAccordion">
+                <div class="accordion-body">
+                    @foreach(var resource in Model.Resource.Where(r => r.Category == category.Id))
+                    {
+                    <p><a href="@resource.Link" target="_blank" rel="noreferrer"><b>@resource.Title</b></a>: @resource.Description</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    @if(Model.Resource.Any(r => r.Category == null))
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingLast">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="false" aria-controls="collapseLast">
+                    Uncategorised
+                </button>
+            </h2>
+            <div id="collapseLast" class="accordion-collapse collapse" aria-labelledby="headingLast" data-bs-parent="#resourceAccordion">
+                <div class="accordion-body">
+                    @foreach (var resource in Model.Resource.Where(r => r.Category == null))
+                    {
+                        <p><a href="@resource.Link" target="_blank" rel="noreferrer"><b>@resource.Title</b></a>: @resource.Description</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

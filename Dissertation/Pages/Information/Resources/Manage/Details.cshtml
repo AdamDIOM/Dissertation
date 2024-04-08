@@ -1,0 +1,43 @@
+﻿@page
+@model Dissertation.Pages.Information.Resources.Manage.DetailsModel
+
+@{
+    ViewData["Title"] = "Resource Details";
+}
+
+<h1>Resource Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resource.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Resource.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resource.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Resource.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resource.Link)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Resource.Link)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Resource.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ResourceType.FirstOrDefault(t => t.Id == Model.Resource.Category);
+        </dd>
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <a asp-page="./Edit" asp-route-id="@Model.Resource.Id" class="btn">Edit</a>
+            <a asp-page="./Index" class="btn">Back to List</a>
+        </div>
+    </dl>
+</div>
