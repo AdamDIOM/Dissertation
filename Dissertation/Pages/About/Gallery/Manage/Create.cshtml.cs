@@ -66,7 +66,12 @@ namespace Dissertation.Pages.About.Gallery.Manage
 
             ModelState.Remove(UploadedBy);
 
-            if (!ModelState.IsValid)
+            if (Request.Form.Files.Count < 1)
+            {
+                ModelState.AddModelError("Image upload required");
+            }
+
+                if (!ModelState.IsValid)
             {
                 return Page();
             }
