@@ -1,0 +1,49 @@
+﻿@page
+@model Dissertation.Pages.Policies.Manage.UploadModel
+
+@{
+    ViewData["Title"] = "Upload Policy";
+}
+
+<h1>Upload New Policy</h1>
+
+<hr />
+
+<form method="post" enctype="multipart/form-data">
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Policy.Title" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Policy.Title" class="form-control" />
+            <span asp-validation-for="Policy.Title" class="text-danger"></span>
+        </dd>
+        <dt class="col-sm-2">
+            Policy (PDF format)
+        </dt>
+        <dd class="col-sm-10">
+            <input type="file" id="file1" name="file1" multiple="multiple" class="form-control" />
+            <input asp-for="Policy.Link" class="form-control" value="link" hidden/>
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Policy.UploadedBy" class="control-label"></label>
+        </dt>
+        <dd class="col-sm-10">
+            <input asp-for="Policy.UploadedBy" class="form-control" disabled value="@Model.UploadedBy" />
+            <input asp-for="Policy.UploadedBy" class="form-control" hidden value="@Model.UploadedBy" />
+            <input asp-for="UploadedBy" class="form-control" hidden value="@Model.UploadedBy" />
+            <span asp-validation-for="Policy.UploadedBy" class="text-danger"></span>
+        </dd>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Policy.DateUpdated" class="form-control" hidden value="@DateTime.Now" />
+        <dt class="col-sm-2"></dt>
+        <dd class="col-sm-10">
+            <input type="submit" value="Upload" class="btn btn-primary" />
+            <a asp-page="Index" class="btn btn-danger">Back to List</a>
+        </dd>
+    </dl>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

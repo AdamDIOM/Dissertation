@@ -31,5 +31,6 @@ namespace Dissertation.Data
         public DbSet<Dissertation.Models.Image> Image { get; set; } = default!;
         public DbSet<Dissertation.Models.Resource> Resource { get; set; } = default!;
         public DbSet<Dissertation.Models.ResourceType> ResourceType { get; set; } = default!;
+        public DbSet<Dissertation.Models.Policy> Policy { get; set; } = default!;
     }
 }

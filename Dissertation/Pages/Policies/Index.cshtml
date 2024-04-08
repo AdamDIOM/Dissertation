@@ -1,0 +1,42 @@
+﻿@page
+@model Dissertation.Pages.Policies.IndexModel
+
+@{
+    ViewData["Title"] = "Policies";
+}
+
+<h1>Policies</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Policy[0].Title)
+            </th>
+            <th>
+                Last Updated
+            </th>
+            <th>
+                Updated By
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Policy) {
+        <tr>
+            <td>
+                    <a href="@item.Link">@item.Title</a>
+            </td>
+            <td>
+                    @if(item.DateUpdated != null)
+                    {
+                        @(((item.DateUpdated ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("dd/MMM/yyyy"))
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedBy)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

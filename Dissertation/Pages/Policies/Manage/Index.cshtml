@@ -1,0 +1,57 @@
+﻿@page
+@model Dissertation.Pages.Policies.Manage.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Policies";
+}
+
+<h1>Manage Policies</h1>
+
+<p>
+    <a asp-page="Upload" class="btn">Upload New Policy</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Policy[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Policy[0].Link)
+            </th>
+            <th>
+                Date Updated
+            </th>
+            <th>
+                Updated By
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Policy) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="td-break">
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                    @if(item.DateUpdated != null)
+                    {
+                        <p>@(((item.DateUpdated ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MMM/yyyy"))</p>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedBy)
+            </td>
+            <td>
+                <a asp-page="./Update" asp-route-id="@item.Id" class="btn w-100 mb-1">Update</a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn w-100 mb-1">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger w-100">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
