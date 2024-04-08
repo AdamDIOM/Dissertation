@@ -68,7 +68,7 @@ namespace Dissertation.Pages.About.Gallery.Manage
 
             if (Request.Form.Files.Count < 1)
             {
-                ModelState.AddModelError("Image upload required");
+                ModelState.AddModelError("missing-image", "Image upload required");
             }
 
                 if (!ModelState.IsValid)
