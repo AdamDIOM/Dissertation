@@ -487,3 +487,18 @@ textarea{
 .td-break{
     overflow-wrap:anywhere;
 }
+
+.sidebar-image {
+    width: 100%;
+    object-fit: cover;
+    height: 80%;
+    box-shadow: 0px 0px 5px 1px #000000;
+}
+
+@media screen and (max-width: 767px) {
+
+    .sidebar-image{
+        height:initial;
+        aspect-ratio:2/1;
+    }
+}

@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_LayoutWide";
+}
+
+<div class="row flex-grow-1">
+    <div class="col col-1 d-none d-md-block"></div>
+    <div class="col col-12 col-md-6">
+        @RenderBody()
+    </div>
+    <div class="col col-12 d-md-flex col-md-5 align-items-center">
+        <img class="sidebar-image" @RenderSection("image", required: true) />
+    </div>
+</div>
