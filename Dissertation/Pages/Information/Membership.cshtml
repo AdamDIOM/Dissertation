@@ -2,7 +2,26 @@
 @model Dissertation.Pages.Information.MembershipModel
 @{
     ViewData["Title"] = "Membership";
+    Layout = "_LayoutImageRight";
 }
+
 <h1>Code Club Membership</h1>
+<p>Attending Code Club's weekly drop-in sessions has always been <b>free of charge</b>: we believe our sessions should be accessible to everyone.</p>
+<p>On top of this, we also have an optional membership scheme. This scheme costs £10 per year, and is all processed online at <a href="https://membermojo.co.uk/codeclubiom" target="_blank" rel="noreferrer">Membermojo</a>.</p>
 <h2>Benefits of becoming a member</h2>
-<p>Insert copy.</p>
+<ul>
+    <li>Priority access to courses</li>
+    <li>Printed Code Club member card</li>
+</ul>
+<h2>How to Sign Up</h2>
+<ol>
+    <li>Head to <a href="https://membermojo.co.uk/codeclubiom" target="_blank" rel="noreferrer">membermojo.com/codeclubiom</a> and hit 'Join Us'.</li>
+    <li>Enter your details, upload a photo and head to the checkout.</li>
+    <li>Securely pay online, or select cash.</li>
+    <li>... and that's it! Now just await the arrival of your membership card.</li>
+</ol>
+
+@section image {
+src="/img/Carousel/img-1.jpeg" alt="Code Club robotics group image"
+}
+ 
