@@ -6,7 +6,7 @@
 }
 
 <h1>Gallery</h1>
-<div class="img-wrapper">
+<div class="img-wrapper d-flex justify-content-around flex-wrap">
 
     @foreach (var item in Model.Images) {
         <a asp-route-image="@item.Id"><img src="@($"https://dissertationad.blob.core.windows.net/gallery/{item.Id}.png")" alt="@item.Caption" class="gallery-image" /></a>
@@ -21,20 +21,25 @@
 
 @if(Model.Image != null)
 {
-    <div class="full-image-wrapper">
-        <div class="px-3 w-100 d-flex justify-content-end">
+    <div class="full-image-wrapper d-flex flex-column justify-content-center">
+        <div class="px-3 pb-2 pb-md-0 w-100 d-flex justify-content-end">
             <a asp-page="./Index" class="btn text-light btn-close btn-close-light" aria-label="Close"></a>
         </div>
         <div class="row">
-            <div class="col-1 d-flex align-items-center text-center">
-                <a asp-route-image="@Model.Before" class="btn p-2 text-light" aria-label="Previous Image">&lt</a>
+            <div class="col-6 col-md-1 order-2 order-md-1 d-flex align-items-center text-center">
+                <a asp-route-image="@Model.Before" class="btn p-2 text-light w-100 d-flex align-items-center h-100 h-md-75 justify-content-center" aria-label="Previous Image">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                    </svg>
+
+                </a>
             </div>
-            <div class="col-10">
+            <div class="col-12 col-md-10 order-1 order-md-2 mb-2">
                 <div class="w-100 d-flex justify-content-center">
 					<img src="@($"https://dissertationad.blob.core.windows.net/gallery/{Model.Image.Id}.png")" alt="@Model.Image.Caption" class="full-image" />
                 </div>
                 
-                <div class="image-caption text-center mt-3 p-2 text-light">
+                <div class="image-caption text-center mt-3 p-2 text-light rounded">
                     <h5>@Model.Image.Caption</h5>
                     <p>@Model.Image.Description</p>
                     @if(Model.Image.Link != null && Model.Image.Link != "")
@@ -43,8 +48,13 @@
                     }
                 </div>
             </div>
-            <div class="col-1 d-flex align-items-center text-center">
-                <a asp-route-image="@Model.After" class="btn p-2 text-light" aria-label="Next Image">&gt</a>
+            <div class="col-6 col-md-1 order-3 order-md-3 d-flex align-items-center text-center">
+                <a asp-route-image="@Model.After" class="btn p-2 text-light d-flex align-items-center w-100 h-100 h-md-75 justify-content-center" aria-label="Next Image">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                    </svg>
+
+                </a>
             </div>
         </div>
         

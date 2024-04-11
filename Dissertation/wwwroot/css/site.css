@@ -441,7 +441,8 @@ textarea{
 }
 
 .gallery-image {
-    width: 25vw;
+    height: 24vh;
+    width:auto;
     display: inline-block;
     margin: 5px;
     border-radius:5px;
@@ -455,14 +456,27 @@ textarea{
     transform:scale(1.5);
 }
 
+@media screen and (max-width: 767px) {
+    .gallery-image {
+        height: auto;
+        width: 100%;
+    }
+    .gallery-image:hover {
+        transform:none;
+    }
+
+}
+
+
 .full-image-wrapper {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.65);
     border-radius: 20px;
     padding: 20px;
     width: 98%;
-    margin-left:1%;
+    margin-left: 1%;
     left: 0;
+    height:90vh;
 }
 
 .full-image {
@@ -470,7 +484,7 @@ textarea{
     max-width: 100%;
     border-radius: 10px;
     background-color: white;
-    padding:5px;
+    padding: 5px;
 }
 
 .image-caption {
@@ -484,8 +498,8 @@ textarea{
     opacity: 1;
 }
 
-.td-break{
-    overflow-wrap:anywhere;
+.td-break {
+    overflow-wrap: anywhere;
 }
 
 .sidebar-image {
@@ -497,8 +511,14 @@ textarea{
 
 @media screen and (max-width: 767px) {
 
-    .sidebar-image{
-        height:initial;
-        aspect-ratio:2/1;
+    .sidebar-image {
+        height: initial;
+        aspect-ratio: 2/1;
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .h-md-75{
+        height:75% !important;
     }
 }
