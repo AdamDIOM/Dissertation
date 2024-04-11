@@ -11,3 +11,9 @@
     </div>
     <div class="col col-1 d-none d-md-block"></div>
 </div>
+
+@section Scripts {
+    @{
+        await RenderSectionAsync("Scripts", required: false);
+    }
+}

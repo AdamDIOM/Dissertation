@@ -11,3 +11,9 @@
         <img class="sidebar-image" @RenderSection("image", required: true) />
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await RenderSectionAsync("Scripts", required: false);
+    }
+}
