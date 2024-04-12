@@ -506,7 +506,11 @@ textarea{
     width: 100%;
     object-fit: cover;
     height: 80%;
+    max-height:100vh;
     box-shadow: 0px 0px 5px 1px #000000;
+    position: sticky;
+    top:0;
+    z-index:1019;
 }
 
 @media screen and (max-width: 767px) {
@@ -521,4 +525,10 @@ textarea{
     .h-md-75{
         height:75% !important;
     }
+}
+.sidebar-image-wrapper {
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 1019;
 }
