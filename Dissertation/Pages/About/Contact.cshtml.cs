@@ -64,6 +64,10 @@ namespace Dissertation.Pages.About
             {
                 // gets email password
                 string smtpPassword = _config["SECRET_SMTP_PASSWORD"] ?? "";
+                if (smtpPassword == "")
+                {
+                    smtpPassword = _config.GetValue<string>("SECRET_SMTP_PASSWORD")!;
+                }
                 // links to email client
                 SmtpClient sc = new SmtpClient
                 {
