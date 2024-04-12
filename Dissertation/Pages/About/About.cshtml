@@ -2,4 +2,70 @@
 @model Dissertation.Pages.About.AboutModel
 @{
     ViewData["Title"] = "About Us";
+    Layout = "_LayoutImageRight";
+}
+
+@section image{
+src="/img/Carousel/img-3.png" alt="Code Club's success at CyberCenturion 2022"
+}
+
+<h1>About Code Club</h1>
+<p>The Isle of Man Code Club is an organisation aimed at providing a focal point for people of all ages to develop digital skills, share their knowledge and teach others how to leverage the technology that surrounds us.</p>
+<h2>The History of Code Club</h2>
+<p>Currently in our @Model.Ordinal(Model.Age + 1) year, Code Club is bigger and better than we've ever been.</p>
+<div class="row">
+    @Html.Raw(Period(
+            from: 2014,
+            to: 2015,
+            content: "Our journey began in 2014, in a building known as The Forum, in central Douglas. From Scratch to Robotics, python to Cyber Security, we really tried it all and got stuck in. The club grew from strength to strength in The Forum, covering many subjects and even hosting some competitions!"))
+    @Html.Raw(Period(
+            from: 2015,
+            to: 2017,
+            content: "Moving on from there, we moved down to Ballasalla, to Barrule House. The change of scenery was a shock, however we learned to embrace it and made some fantastic memories, including delving into the world of radio."))
+    @Html.Raw(Period(
+            from: 2014,
+            to: 2015,
+            content: "Our journey began in 2014, in a building known as The Forum, in central Douglas. From Scratch to Robotics, python to Cyber Security, we really tried it all and got stuck in. The club grew from strength to strength in The Forum, covering many subjects and even hosting some competitions!"))
+    @Html.Raw(Period(
+            from: 2017,
+            to: 2020,
+            content: "Next up came the STEAM Lab on Prospect Hill. Our cosiest venue to date, but one where we really utilised everything we had."))
+    @Html.Raw(Period(
+            from: 2018,
+            to: 2024,
+            content: "We didn’t stick around there for long though, venturing out to the mystical place that was the Eagle Lab. A place which had all that we needed – and more! We held countless events in the lab, from CyberCenturion to Robotics Olympiads, from Electronics to Maths Revision… and even an Awards Night!"))
+    @Html.Raw(Period(
+            from: 2024,
+            to: "Today",
+            content: "And finally, that brings us to the present day: Code Club at King William’s College. A venue which has everything we need, with lots of space! We’re excited to see where this new chapter goes, and we're glad to have celebrated our tenth birthday here."))
+</div>
+
+@functions {
+    public object Period(string from, string to, string content)
+    {
+        return $@"
+            <hr /><div class=""col col-12 col-md-3 col-lg-2 text-danger text-center d-flex align-items-center justify-content-center"">
+            <h3>
+                {from} <svg class=""w-6 h-6 text-gray-800 dark:text-white mx-auto d-none d-md-block"" aria-hidden=""true"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" fill=""none"" viewBox=""0 0 24 24"">
+                    <path stroke=""currentColor"" stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M12 19V5m0 14-4-4m4 4 4-4"" />
+                </svg><svg class=""w-6 h-6 text-gray-800 dark:text-white d-inline d-md-none"" aria-hidden=""true"" xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" fill=""none"" viewBox=""0 0 24 24"">
+        <path stroke=""currentColor"" stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M19 12H5m14 0-4 4m4-4-4-4"" />
+    </svg>
+                {to}
+            </h3>
+        </div>
+            <div class=""col col-12 col-md-9 col-lg-10 d-flex align-items-center""><p>{content}</p></div>";
+    }
+    public object Period(int from, int to, string content)
+    {
+        return Period(from: $"{from}", to: $"{to}", content);
+    }
+    public object Period(int from, string to, string content)
+    {
+        return Period(from: $"{from}", to, content);
+    }
+    public object Period(string from, int to, string content)
+    {
+        return Period(from, to: $"{to}", content);
+    }
 }
