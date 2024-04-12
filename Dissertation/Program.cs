@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Dissertation.Data;
 using Microsoft.AspNetCore.Identity;
+using AspNetCore.ReCaptcha;
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = new ConfigurationBuilder()
@@ -10,6 +11,8 @@ IConfiguration config = new ConfigurationBuilder()
 string dbConnStr = "";
 string msID = "";
 string msSec = "";
+string rCSite = "";
+string rCSecret = "";
 
 try
 {
@@ -37,6 +40,24 @@ try
 catch
 {
     msSec = builder.Configuration.GetValue<string>("AUTH_MS_SECRET")!;
+}
+try
+{
+    rCSite = config["reCAPTCHASiteKey"] ?? "";
+    if (rCSite == null || rCSite == "") throw new InvalidOperationException("no secrets file");
+}
+catch
+{
+    rCSite = builder.Configuration.GetSection("reCAPTCHA")["SiteKey"]!;
+}
+try
+{
+    rCSecret = config["reCAPTCHASecretKey"] ?? "";
+    if (rCSecret == null || rCSecret == "") throw new InvalidOperationException("no secrets file");
+}
+catch
+{
+    rCSecret = builder.Configuration.GetSection("reCAPTCHA")["SecretKey"]!;
 }
 
 builder.Services.AddAuthorization(options =>
@@ -97,6 +118,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddReCaptcha(options =>
+{
+    options.SiteKey = rCSite;
+    options.SecretKey = rCSecret;
+    options.Version = ReCaptchaVersion.V2;
+});
 
 var app = builder.Build();
 

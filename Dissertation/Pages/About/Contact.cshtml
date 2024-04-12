@@ -2,6 +2,69 @@
 @model Dissertation.Pages.About.ContactModel
 @{
     ViewData["Title"] = "Contact";
+    Layout = "_LayoutImageLeft";
 }
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using AspNetCore.ReCaptcha;
+
+
+@section image{
+    src="/img/Carousel/img-1.jpeg" alt="Code Club at King William's College"
+}
+
 <h1>Contact Code Club</h1>
-<p>Address, location, contact form</p>
+<h2>Where to Find Us</h2>
+<p>You can find us in Stenning, at King William's College, Castletown.</p>
+<iframe class="w-100 map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2848.053184866338!2d-4.636238772152537!3d54.07980094521924!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48638516d9f77a9f%3A0x7705a5af8ebbc222!2sCode%20Club!5e0!3m2!1sen!2sim!4v1712884589110!5m2!1sen!2sim" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<img src="/img/Stenning.png" alt="Stenning, the building that Code Club is in." class="w-100" />
+<p class="text-muted">Stenning, the building that Code Club is in.</p>
+<h2>Questions</h2>
+<p>In the first instance, we recommend you check out our <a asp-page="../Information/FAQs/Index">Frequently Asked Questions</a> page. If you are still looking for an answer, send us an email using the below form.</p>
+@if(Model.success != null && Model.success == "true")
+{
+    <p class="text-success">Message sent! <i>Please note, our inbox is solely managed by volunteers, so there may be a delay on the response.</i></p>
+}
+<form method="post">
+    <dl class="row px-2">
+        <dt class="col-lg-2">
+            <label asp-for="ContactRequest.Email" class="control-label"></label>
+        </dt>
+        <dd class="col-lg-10">
+            <input asp-for="ContactRequest.Email" class="form-control" value="@(Model.Email ?? "")" placeholder="Your Email" />
+            <span asp-validation-for="ContactRequest.Email" class="text-danger"></span>
+        </dd>
+        <dt class="col-lg-2">
+            <label asp-for="ContactRequest.Name" class="control-label"></label>
+        </dt>
+        <dd class="col-lg-10">
+            <input asp-for="ContactRequest.Name" class="form-control" placeholder="Your Name" />
+            <span asp-validation-for="ContactRequest.Name" class="text-danger"></span>
+        </dd>
+        <dt class="col-lg-2">
+            <label asp-for="ContactRequest.Subject" class="control-label"></label>
+        </dt>
+        <dd class="col-lg-10">
+            <input asp-for="ContactRequest.Subject" class="form-control" placeholder="Message Subject" />
+            <span asp-validation-for="ContactRequest.Subject" class="text-danger"></span>
+        </dd>
+        <dt class="col-lg-2">
+            <label asp-for="ContactRequest.Message" class="control-label"></label>
+        </dt>
+        <dd class="col-lg-10">
+            <textarea asp-for="ContactRequest.Message" class="form-control" placeholder="Your Message"> </textarea>
+            <span asp-validation-for="ContactRequest.Message" class="text-danger"></span>
+        </dd>
+        <dt class="col-lg-2"></dt>
+        <dd class="col-lg-10">
+            <div class="mt-1">
+                <recaptcha />
+            </div>
+        </dd>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <dt class="col-lg-2"></dt>
+        <dd class="col-lg-10">
+            <input type="submit" value="Submit" class="btn mt-1" />
+        </dd>
+   </dl>
+</form>

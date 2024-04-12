@@ -562,3 +562,8 @@ html {
         top: 0;
         z-index: 1019;
     }
+
+
+.map-frame{
+    aspect-ratio:2/1;
+}
