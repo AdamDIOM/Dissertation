@@ -28,7 +28,11 @@ html {
 }
 
 .nav-logo{
-    width:10vw;
+    width:50vw;
+}
+
+.offcanvas-logo{
+    width:95%;
 }
 
 .login-email {
@@ -476,7 +480,7 @@ textarea{
     width: 98%;
     margin-left: 1%;
     left: 0;
-    height:90dvh;
+    height:85dvh;
 }
 
 .full-image {
