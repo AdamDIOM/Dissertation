@@ -13,7 +13,7 @@
     <ul class="ps-0">
         @foreach(var t in Model.Tags)
         {
-                <a asp-page="./Index" asp-route-filter="@t.Id"><li class="btn">@t.Tag</li></a>
+                <a href="@($"/News/{t.Tag}")"><li class="btn">@t.Tag</li></a>
         }
     </ul>
     <hr />
@@ -24,5 +24,5 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Index" class="btn">View all News Posts</a>
+    <a href="/News/all" class="btn">View all News Posts</a>
 </div>
