@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
 using Microsoft.Identity.Client;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace Dissertation.Pages.News
 {
@@ -23,41 +24,57 @@ namespace Dissertation.Pages.News
         public IList<Article> Article { get; set; } = default!;
         public IList<ArticleTag> Tags { get; set; } = default!;
         public IList<ArticleTagLink> TagLinks { get; set; } = default!;
+        public int CategorySize { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? filter { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? p { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int p = 1)
         {
             Article = await _context.Articles.Where(a => a.PublishDate < DateTime.Now).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
             TagLinks = await _context.ArticleTagLinks.ToListAsync();
-            if(filter != null && filter != "")
+            if(filter != null && filter != "" && filter != "all")
             {
-                TagLinks = TagLinks.Where(tl => tl.TagId.ToString() == filter).ToList();
-                Article = Article.Where(a => TagLinks.FirstOrDefault(tl => tl.ArticleId == a.Id) != null).ToList();
+                var fId = Tags.FirstOrDefault(t => t.Tag == filter);
+                if(fId != null)
+                {
+                    TagLinks = TagLinks.Where(tl => tl.TagId == fId.Id).ToList();
+                    if(TagLinks.Count() > 0)
+                    {
+                        Article = Article.Where(a => TagLinks.FirstOrDefault(tl => tl.ArticleId == a.Id) != null).ToList();
+                    }
+                    else
+                    {
+                        Article = new List<Article>();
+                    }
+                }
+                else
+                {
+                    Article = new List<Article>();
+                }
             }
             Article = Article.OrderByDescending(a => a.PublishDate).ToList();
-        }
-
-        public IActionResult OnPostFilter(string f)
-        {
-            filter = f;
-            /*if (qry != null && qry != "")
+            CategorySize = Article.Count();
+            if(Article.Count == 0)
             {
-                return Redirect($"View/?qry={qry}&filter={filter}");
-            }*/
-            return Redirect($"News/?filter={filter}");
-        }
-
-        public IActionResult OnPostClearFilter()
-        {
-            filter = "";
-            /*if (qry != null && qry != "")
+                return Page();
+            }
+            if(Article.Count > ((p - 1) * 12))
             {
-                return Redirect($"View/?qry={qry}");
-            }*/
-            return Redirect($"News");
+                Article = Article.Skip((p - 1) * 12).Take(12).ToList();
+                return Page();
+            }
+            else if (filter != null && filter != "")
+            {
+                return Redirect($"../{filter}");
+            }
+            else
+            {
+                return Redirect("/News");
+            }
         }
     }
 }

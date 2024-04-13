@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{filter=all}/{p=1}"
 @model Dissertation.Pages.News.IndexModel
 
 @{
@@ -8,10 +8,10 @@
 <h1>News Posts</h1>
 <h2>Filter by Tag</h2>
 <form method="post">
-    <a asp-page="./Index" class="btn">Clear</a>
+    <a href="/News" class="btn">Clear</a>
     @foreach (var tag in Model.Tags)
     {
-        <input type="submit" asp-route-f="@tag.Id" value="@tag.Tag" class="@((Model.filter ?? "") == tag.Id.ToString() ? "btn btn-highlight" : "btn")" asp-page-handler="Filter"/>
+        <a href="@($"/News/{tag.Tag}")" class="@((Model.filter ?? "") == tag.Tag ? "btn btn-highlight" : "btn")">@tag.Tag</a>
     }
 </form>
 @if (Model.Article.Count == 0)
@@ -51,5 +51,39 @@ else
                 </a>
             </div>
         }
+    </div>
+    <div class="row">
+        <div class="col col-6 col-md-3">
+            <p>Posts @((Model.p-1) * 12 + 1) to @(Math.Min(((Model.p ?? 1) * 12), Model.CategorySize)) of @Model.CategorySize</p>
+        </div>
+        <div class="col col-2">
+            @if((Model.p??1) > 1)
+            {
+                <a class="btn w-100 h-100" href="@($"/News/{Model.filter}/{Model.p - 1}")">
+                    <p class="align-middle mb-0">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                        </svg>
+                        @(Model.p - 1)
+                    </p>
+                </a>
+            }
+        </div>
+        <div class="btn-highlight rounded text-light text-center col col-2 d-flex align-items-center justify-content-center">
+            <b>Page @(Model.p ?? 1)</b>
+        </div>
+        <div class="col col-2">
+            @if ((Model.p ?? 1) < ((decimal)(Model.CategorySize) / (decimal)12))
+            {
+                <a class="btn w-100 h-100" href="@($"/News/{Model.filter}/{Model.p + 1}")">
+                    <p class="align-middle mb-0">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                        </svg>
+                        @(Model.p + 1)
+                    </p>
+                </a>
+            }
+        </div>
     </div>
 }

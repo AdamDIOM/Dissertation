@@ -33,14 +33,14 @@
                                 News
                             </a>
                             <ul class="dropdown-menu news-nav-dropdown">
-                                <li><a class="dropdown-item" asp-page="/News/Index">All</a></li>
+                                <li><a class="dropdown-item" href="/News/all">All</a></li>
                                 @using Dissertation.Data;
                                 @inject DissertationContext _context;
                                 @{
                                     var tags = _context.ArticleTags.Where(t => t.NavDisplay ?? false).ToList();
                                     foreach (var tag in tags)
                                     {
-                                        <li><a class="dropdown-item" asp-page="/News/Index" asp-route-filter="@tag.Id">@tag.Tag</a></li>
+                                        <li><a class="dropdown-item" href="@($"/News/{tag.Tag}")">@tag.Tag</a></li>
                                     }
                                 }
                             </ul>
