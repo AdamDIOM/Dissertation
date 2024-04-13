@@ -6,6 +6,7 @@ namespace Dissertation.Models
     {
         [Key]
         public int Id { get; set; }
+        public string? Slug { get; set; }
         [Required]
         [StringLength(150)]
         public string? Title { get; set; }

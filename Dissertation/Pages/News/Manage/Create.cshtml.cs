@@ -59,14 +59,35 @@ namespace Dissertation.Pages.News.Manage
             Article.HomepageDisplay = HomepageDisplay;
             Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Tags = await _context.ArticleTags.ToListAsync();
-            if (!ModelState.IsValid)
+
+                if(_context.Articles.Any(a => a.Slug == Article.Slug) && Article.Slug != null && Article.Slug != "")
+                {
+                    ModelState.AddModelError("Article.Slug", "The Slug must be unique for every article.");
+                }
+
+            if (Int32.TryParse(Article.Slug, out int _))
+            {
+                ModelState.AddModelError("Article.Slug", "The Slug must not be a number.");
+            }
+
+            if (Article.Slug != null && Article.Slug != "")
+            {
+                Article.Slug = Article.Slug.Replace(' ', '-');
+            }
+
+                if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            
             _context.Articles.Add(Article);
+
             await _context.SaveChangesAsync();
+
+            if (Article.Slug == null || Article.Slug == "")
+            {
+                Article.Slug = Article.Id.ToString();
+            }
 
             if (Request.Form.Files.Count >= 1)
             {

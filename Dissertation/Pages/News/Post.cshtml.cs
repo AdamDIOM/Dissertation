@@ -23,14 +23,14 @@ namespace Dissertation.Pages.News
         public IList<ArticleTag> Tags { get; set; } = default!;
         public IList<ArticleTagLink> Links { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string? slug)
         {
-            if (id == null)
+            if (slug == null)
             {
                 return NotFound();
             }
 
-            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Slug == slug);
             if (article == null)
             {
                 return NotFound();

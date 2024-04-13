@@ -50,7 +50,7 @@
     @foreach (var item in Model.Article)
     {
         <div class="col col-12 col-sm-6 col-lg-4 pb-3 d-flex">
-            <a href="@($"/News/Post/{item.Id}")" class="d-flex">
+            <a href="@($"/News/Post/{item.Slug}")" class="d-flex">
                 <div class="article-preview flex-grow-1">
                     <div class="banner-img-wrapper">
                         <img class="banner-image" src="@($" https://dissertationad.blob.core.windows.net/news-banner-images/{item.Id}.png")" alt="@item.Title" onerror="if (this.src != '/img/logo-169.png') this.src = '/img/logo-169.png';" />

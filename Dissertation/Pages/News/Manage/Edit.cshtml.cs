@@ -70,6 +70,25 @@ namespace Dissertation.Pages.News.Manage
 
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
+
+            if (_context.Articles.Any(a => a.Slug == Article.Slug) && Article.Slug != null && Article.Slug != "")
+            {
+                ModelState.AddModelError("Article.Slug", "The Slug must be unique for every article.");
+            }
+            if (Int32.TryParse(Article.Slug, out int _))
+            {
+                ModelState.AddModelError("Article.Slug", "The Slug must not be a number.");
+            }
+
+            if (Article.Slug == null || Article.Slug == "")
+            {
+                Article.Slug = Article.Id.ToString();
+            }
+            else
+            {
+                Article.Slug = Article.Slug.Replace(' ', '-');
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
