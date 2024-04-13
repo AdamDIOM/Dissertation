@@ -567,3 +567,7 @@ html {
 .map-frame{
     aspect-ratio:2/1;
 }
+
+.article-row md-block img{
+    max-width:100%;
+}
