@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
+using Azure.Storage.Blobs;
 
 namespace Dissertation.Pages.About.Gallery.Manage
 {
     public class DeleteModel : PageModel
     {
         private readonly Dissertation.Data.DissertationContext _context;
+        private readonly IConfiguration _config;
 
-        public DeleteModel(Dissertation.Data.DissertationContext context)
+        public DeleteModel(Dissertation.Data.DissertationContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         [BindProperty]
@@ -53,6 +56,29 @@ namespace Dissertation.Pages.About.Gallery.Manage
             if (image != null)
             {
                 Image = image;
+
+                string connSA = _config["SECRET_SA"] ?? "";
+                if (connSA == "")
+                {
+                    connSA = _config.GetConnectionString("StorageAccount")!;
+                }
+                var blobServiceClient = new BlobServiceClient(connSA);
+
+                //BlobContainerClient container = await blobServiceClient.CreateBlobContainerAsync("sponsor-images");
+                BlobContainerClient container;
+
+                container = blobServiceClient.GetBlobContainerClient("gallery");
+                if (!container.Exists())
+                {
+                    container = await blobServiceClient.CreateBlobContainerAsync("gallery");
+                }
+
+                BlobClient blob = container.GetBlobClient($"{image.Id}.png");
+                if (blob != null && await blob.ExistsAsync())
+                {
+                    await blob.DeleteAsync();
+                }
+
                 _context.Image.Remove(Image);
                 await _context.SaveChangesAsync();
             }
