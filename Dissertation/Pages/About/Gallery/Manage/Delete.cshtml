@@ -58,5 +58,6 @@
         <input type="hidden" asp-for="Image.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a asp-page="./Index" class="btn">Back to List</a>
+        <p><span asp-validation-for="Image.Id" class="text-danger"></span></p>
     </form>
 </div>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Dissertation.Data;
 using Dissertation.Models;
 using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dissertation.Pages.About.Gallery.Manage
 {
@@ -15,11 +16,13 @@ namespace Dissertation.Pages.About.Gallery.Manage
     {
         private readonly Dissertation.Data.DissertationContext _context;
         private readonly IConfiguration _config;
+        private readonly UserManager<SiteUser> _userManager;
 
-        public DeleteModel(Dissertation.Data.DissertationContext context, IConfiguration config)
+        public DeleteModel(Dissertation.Data.DissertationContext context, IConfiguration config, UserManager<SiteUser> um)
         {
             _context = context;
             _config = config;
+            _userManager = um;
         }
 
         [BindProperty]
@@ -55,6 +58,31 @@ namespace Dissertation.Pages.About.Gallery.Manage
             var image = await _context.Image.FindAsync(id);
             if (image != null)
             {
+
+
+                var u = await _userManager.GetUserAsync(User) ?? new SiteUser { Email = "" };
+                if (!(u != null && (await _userManager.IsInRoleAsync(u, "Admin"))))
+                {
+                    ModelState.AddModelError("Image.Id", $"Only admins or {image.UploadedBy} can delete this image.");
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var imageGet = await _context.Image.FirstOrDefaultAsync(m => m.Id == id);
+
+                    if (imageGet == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        Image = imageGet;
+                    }
+                    return Page();
+
+                }
+
                 Image = image;
 
                 string connSA = _config["SECRET_SA"] ?? "";
