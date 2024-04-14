@@ -12,12 +12,14 @@ namespace Dissertation.Pages.Auth
         private readonly SignInManager<SiteUser> _signInManager;
         private readonly UserManager<SiteUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly Dissertation.Data.DissertationContext _context;
         public MSLoginModel(
-            SignInManager<SiteUser> signInManager, UserManager<SiteUser> userManager, RoleManager<IdentityRole> roleManager)
+            SignInManager<SiteUser> signInManager, UserManager<SiteUser> userManager, RoleManager<IdentityRole> roleManager, DissertationContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
         public async Task<IActionResult> OnGetCallbackAsync(string ReturnUrl ="/")
         {
@@ -62,7 +64,16 @@ namespace Dissertation.Pages.Auth
                         {
                             await _userManager.AddToRoleAsync(user, "Volunteer");
                         }
+                        if(_context.Volunteer.Any(v => (v.Email?? "noemail1").ToLower() == (email ?? "noemail2").ToLower() && v.AdminPermissions != null && (bool)v.AdminPermissions))
+                        {
+                            if(user != null)
+                            {
+                                await _userManager.AddToRoleAsync(user, "Admin");
+                            }
+                        }
 
+                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                        await _signInManager.SignOutAsync();
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                         return Redirect(ReturnUrl);
                     }

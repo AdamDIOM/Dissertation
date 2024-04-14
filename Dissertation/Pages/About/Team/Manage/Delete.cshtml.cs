@@ -87,7 +87,7 @@ namespace Dissertation.Pages.About.Team.Manage
                 }
 
                 BlobClient blob = container.GetBlobClient($"{Volunteer.Id}-{Volunteer.Name}.png");
-                if(blob != null)
+                if(blob != null && await blob.ExistsAsync())
                 {
                     await blob.DeleteAsync();
                 }
