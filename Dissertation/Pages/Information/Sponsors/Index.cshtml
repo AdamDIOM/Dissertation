@@ -13,9 +13,9 @@
         var e = $"e-{item.Id}";
         var imgLink = $"https://dissertationad.blob.core.windows.net/sponsor-images/{item.Id}.png";
         <div class="col col-12 col-sm-6 col-md-4 pb-3">
-            <div class="accordion" id="@e">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="@h">
+            <div class="accordion h-100" id="@e">
+                <div class="accordion-item h-100 d-flex flex-column">
+                    <h2 class="accordion-header d-flex flex-grow-1" id="@h">
                         <button class="accordion-button collapsed footer-accordion-item" type="button" data-bs-toggle="collapse" data-bs-target="#@c" aria-expanded="false" aria-controls="@c">
                             <img class="sponsor-image" src="@imgLink" alt="@item.Name" />
                         </button>
