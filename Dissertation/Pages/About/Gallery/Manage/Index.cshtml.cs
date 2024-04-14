@@ -37,7 +37,7 @@ namespace Dissertation.Pages.About.Gallery.Manage
             CurrentUser = email ?? "Volunteer";
             if (user != null && user.Name != null) CurrentUser = user.Name;
 
-            AdminUser = (user != null && (await _userManager.IsInRoleAsync(u, "Admin")));
+            AdminUser = (u != null && (await _userManager.IsInRoleAsync(u, "Admin")));
             Image = await _context.Image.ToListAsync();
         }
     }
