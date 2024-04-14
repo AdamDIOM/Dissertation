@@ -29,18 +29,18 @@
             <md-block>@Html.DisplayFor(model => model.Article.Content)</md-block>
         </dd>
         <dt class="col-sm-2">
-            Publish Date and Time (Your local time)
+            Publish Date and Time (GMT)
         </dt>
         <dd class="col-sm-10">
             @if (Model.Article.PublishDate != null)
             {
                 if (Model.Article.PublishDate < DateTime.UtcNow)
                 {
-                    <p>@(TimeZoneInfo.ConvertTimeFromUtc((DateTime)Model.Article.PublishDate, TimeZoneInfo.Local).ToString("HH:mm, dd/MM/yyyy"))</p>
+                    <p>@(((DateTime)Model.Article.PublishDate).ToString("HH:mm, dd/MM/yyyy"))</p>
                 }
                 else
                 {
-                    <p class="text-danger">@(TimeZoneInfo.ConvertTimeFromUtc((DateTime)Model.Article.PublishDate, TimeZoneInfo.Local).ToString("HH:mm, dd/MM/yyyy"))</p>
+                    <p class="text-danger">@(((DateTime)Model.Article.PublishDate).ToString("HH:mm, dd/MM/yyyy"))</p>
                 }
             }
             else

@@ -47,14 +47,6 @@ namespace Dissertation.Pages.News.Manage
             Article = article;
             HomepageDisplay = Article.HomepageDisplay ?? true;
 
-
-            if (Article.PublishDate != null)
-            {
-                Article.PublishDate = TimeZoneInfo.ConvertTimeFromUtc((DateTime)Article.PublishDate, TimeZoneInfo.Local);
-            }
-
-            //Article.PublishDate = Article.PublishDate + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
-
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
             ChosenTags = new List<ArticleTag>();
@@ -71,22 +63,16 @@ namespace Dissertation.Pages.News.Manage
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (Article.PublishDate != null)
-            {
-                Article.PublishDate = TimeZoneInfo.ConvertTimeToUtc((DateTime)Article.PublishDate);
-            }
-
-            //Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Article.HomepageDisplay = HomepageDisplay;
 
             Links = await _context.ArticleTagLinks.Where(l => l.ArticleId == Article.Id).ToListAsync();
             Tags = await _context.ArticleTags.ToListAsync();
 
-            if (_context.Articles.Any(a => a.Slug == Article.Slug) && Article.Slug != null && Article.Slug != "")
+            if (_context.Articles.Any(a => a.Slug == Article.Slug && a.Id != Article.Id) && Article.Slug != null && Article.Slug != "")
             {
                 ModelState.AddModelError("Article.Slug", "The Slug must be unique for every article.");
             }
-            if (Int32.TryParse(Article.Slug, out int _))
+            if (Int32.TryParse(Article.Slug, out int slugInt) && slugInt != Article.Id)
             {
                 ModelState.AddModelError("Article.Slug", "The Slug must not be a number.");
             }

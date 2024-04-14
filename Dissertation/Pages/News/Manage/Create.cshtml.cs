@@ -56,10 +56,6 @@ namespace Dissertation.Pages.News.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             Article.HomepageDisplay = HomepageDisplay;
-            if(Article.PublishDate != null)
-            {
-                Article.PublishDate = TimeZoneInfo.ConvertTimeToUtc((DateTime)Article.PublishDate);
-            }
             
             //Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Tags = await _context.ArticleTags.ToListAsync();
