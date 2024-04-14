@@ -55,9 +55,13 @@ namespace Dissertation.Pages.News.Manage
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //Article.BannerImage = new byte[0];
             Article.HomepageDisplay = HomepageDisplay;
-            Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            if(Article.PublishDate != null)
+            {
+                Article.PublishDate = TimeZoneInfo.ConvertTimeToUtc((DateTime)Article.PublishDate);
+            }
+            
+            //Article.PublishDate = Article.PublishDate - TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             Tags = await _context.ArticleTags.ToListAsync();
 
                 if(_context.Articles.Any(a => a.Slug == Article.Slug) && Article.Slug != null && Article.Slug != "")

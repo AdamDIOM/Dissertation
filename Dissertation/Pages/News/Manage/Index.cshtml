@@ -41,11 +41,11 @@
                     {
                         if(item.PublishDate < DateTime.UtcNow)
                         {
-                            <p>@(((item.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                            <p>@(TimeZoneInfo.ConvertTimeFromUtc((DateTime)item.PublishDate, TimeZoneInfo.Local).ToString("HH:mm, dd/MM/yyyy"))</p>
                         }
                         else
                         {
-                            <p class="text-danger">@(((item.PublishDate ?? DateTime.Now) + TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow)).ToString("HH:mm, dd/MM/yyyy"))</p>
+                            <p class="text-danger">@(TimeZoneInfo.ConvertTimeFromUtc((DateTime)item.PublishDate, TimeZoneInfo.Local).ToString("HH:mm, dd/MM/yyyy"))</p>
                         }
                     }
                     else
